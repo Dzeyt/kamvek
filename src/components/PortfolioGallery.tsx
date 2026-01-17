@@ -21,7 +21,7 @@ export function PortfolioGallery({ items }: Props) {
 
   const filtered = useMemo(() => {
     if (category === "Все") return items;
-    return items.filter((x) => x.category === category);
+    return items.filter((x) => x.categories.includes(category));
   }, [items, category]);
 
   const visible = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
@@ -155,7 +155,7 @@ export function PortfolioGallery({ items }: Props) {
 
               <div className="flex items-center justify-between gap-2 mt-3 text-white/80 text-sm">
                 <div className="truncate">
-                  {activeItem.title ? activeItem.title : activeItem.category}
+                  {activeItem.title ? activeItem.title : activeItem.categories[0]}
                 </div>
                 <div className="shrink-0">
                   {activeIndex! + 1} / {visible.length}

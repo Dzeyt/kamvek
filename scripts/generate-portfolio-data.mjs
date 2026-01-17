@@ -32,7 +32,7 @@ async function main() {
     return {
       id: makeIdFromFilename(file),
       src: "/" + relPath.replace(/^public\//, ""),
-      category: "Без категории",
+      categories: ["Без категории"],
     };
   });
 
@@ -57,7 +57,7 @@ async function main() {
     `export type PortfolioItem = {\n` +
     `  id: string;\n` +
     `  src: string;\n` +
-    `  category: PortfolioCategory;\n` +
+    `  categories: PortfolioCategory[];\n` +
     `  // optional: подпись/материал — можно добавить позже\n` +
     `  title?: string;\n` +
     `  material?: string;\n` +
