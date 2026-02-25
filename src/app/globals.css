@@ -201,9 +201,9 @@ img {
   padding: 0.5rem 1rem 0.75rem !important;
 }
 .yarl__captions_title,
-.yarl__captions_description {
-  font-size: 0.875rem !important;
-  color: rgba(255, 255, 255, 0.55) !important;
+.yarl__captions_description,
+.yarl__slide_description  {
+  color: rgba(255, 255, 255, 0.7) !important;
   font-weight: 400 !important;
   text-align: left !important;
 }
