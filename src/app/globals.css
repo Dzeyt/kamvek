@@ -186,3 +186,24 @@ img {
   background-size: 20px 20px;
   background-position: 0 0, 10px 0, 10px -10px, 0px 10px;
 }
+
+/* Lightbox: hide prev/next arrows on mobile */
+@media (max-width: 767px) {
+  .yarl__navigation_prev,
+  .yarl__navigation_next {
+    display: none !important;
+  }
+}
+
+/* Lightbox: subtle captions like the old bottom bar */
+.yarl__captions {
+  background: transparent !important;
+  padding: 0.5rem 1rem 0.75rem !important;
+}
+.yarl__captions_title,
+.yarl__captions_description {
+  font-size: 0.875rem !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+}
