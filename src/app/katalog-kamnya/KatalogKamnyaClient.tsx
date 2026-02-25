@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import type { TargetAndTransition, Transition } from "framer-motion";
 import clsx from "clsx";
 import Image from "next/image";
 
@@ -26,8 +27,8 @@ export function KatalogKamnyaClient() {
         transition: { duration: 0.5 },
       };
 
-  const cardHover = shouldReduceMotion ? {} : { scale: 1.02 };
-  const cardTransition = shouldReduceMotion ? {} : { duration: 0.2 };
+  const cardHover: TargetAndTransition = shouldReduceMotion ? {} : { scale: 1.02 };
+  const cardTransition: Transition = shouldReduceMotion ? {} : { duration: 0.2 };
 
   return (
     <main className="min-h-screen">
@@ -142,8 +143,8 @@ export function KatalogKamnyaClient() {
 /* ===== Stone Card ===== */
 type StoneCardProps = {
   stone: StoneItem;
-  cardHover: object;
-  cardTransition: object;
+  cardHover: TargetAndTransition;
+  cardTransition: Transition;
 };
 
 function StoneCard({ stone, cardHover, cardTransition }: StoneCardProps) {
