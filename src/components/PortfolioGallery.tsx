@@ -169,7 +169,7 @@ export function PortfolioGallery({ items }: Props) {
       <AnimatePresence>
         {activeItem ? (
           <motion.div
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/92 flex flex-col items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -177,38 +177,16 @@ export function PortfolioGallery({ items }: Props) {
             role="dialog"
             aria-modal="true"
           >
-            <motion.div
-              className="relative w-full max-w-5xl"
-              initial={{ scale: 0.98, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.98, opacity: 0 }}
-              transition={{ duration: 0.15 }}
+            {/* Top bar: counter + close */}
+            <div
+              className="w-full flex items-center justify-between px-4 py-3 shrink-0"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative w-full aspect-[16/10] bg-black rounded-lg overflow-hidden">
-                <Image
-                  src={activeItem.src}
-                  alt={activeItem.title || "Работа КАМВЕК"}
-                  fill
-                  sizes="(max-width: 1200px) 100vw, 1200px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-
-              <div className="flex items-center justify-between gap-2 mt-3 text-white/80 text-sm">
-                <div className="truncate">
-                  {activeItem.title ? activeItem.title : activeItem.categories[0]}
-                </div>
-                <div className="shrink-0">
-                  {activeIndex! + 1} / {visible.length}
-                </div>
-              </div>
-
-              {/* Controls */}
-              {/* Close */}
+              <span className="text-white/60 text-sm tabular-nums">
+                {activeIndex! + 1} / {visible.length}
+              </span>
               <button
-                className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors flex items-center justify-center"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors flex items-center justify-center"
                 onClick={() => setActiveIndex(null)}
                 aria-label="Закрыть"
               >
@@ -216,10 +194,45 @@ export function PortfolioGallery({ items }: Props) {
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
+            </div>
 
-              {/* Prev */}
+            {/* Image area with swipe */}
+            <motion.div
+              key={activeIndex}
+              className="relative w-full flex-1 min-h-0 flex items-center justify-center px-2 md:px-16"
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={shouldReduceMotion ? {} : { opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.15 }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.15}
+              onDragEnd={(_e, info) => {
+                if (info.offset.x < -60) {
+                  setActiveIndex((i) => (i === null ? i : (i + 1) % visible.length));
+                } else if (info.offset.x > 60) {
+                  setActiveIndex((i) => (i === null ? i : (i - 1 + visible.length) % visible.length));
+                }
+              }}
+            >
+              <div
+                className="relative w-full h-full"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={activeItem.src}
+                  alt={activeItem.title || "Работа КАМВЕК"}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                  className="object-contain select-none"
+                  priority
+                  draggable={false}
+                />
+              </div>
+
+              {/* Prev — desktop only */}
               <button
-                className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-14 rounded-r-lg bg-black/40 hover:bg-black/60 text-white transition-colors flex items-center justify-center"
+                className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 w-12 h-14 rounded-lg bg-black/40 hover:bg-black/60 text-white transition-colors items-center justify-center"
                 onClick={() => setActiveIndex((i) => (i === null ? i : (i - 1 + visible.length) % visible.length))}
                 aria-label="Предыдущее фото"
               >
@@ -228,9 +241,9 @@ export function PortfolioGallery({ items }: Props) {
                 </svg>
               </button>
 
-              {/* Next */}
+              {/* Next — desktop only */}
               <button
-                className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-14 rounded-l-lg bg-black/40 hover:bg-black/60 text-white transition-colors flex items-center justify-center"
+                className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 w-12 h-14 rounded-lg bg-black/40 hover:bg-black/60 text-white transition-colors items-center justify-center"
                 onClick={() => setActiveIndex((i) => (i === null ? i : (i + 1) % visible.length))}
                 aria-label="Следующее фото"
               >
@@ -239,6 +252,16 @@ export function PortfolioGallery({ items }: Props) {
                 </svg>
               </button>
             </motion.div>
+
+            {/* Bottom bar: title + swipe hint on mobile */}
+            <div
+              className="w-full shrink-0 px-4 py-3 flex items-center justify-between gap-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className="text-white/70 text-sm truncate">
+                {activeItem.title ? activeItem.title : activeItem.categories[0]}
+              </p>
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>
