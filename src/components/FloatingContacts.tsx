@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CONTACTS } from "@/data/contacts";
 
 // Иконка основного FAB (чат)
@@ -44,9 +44,21 @@ const PHONE_HREF = CONTACTS.phone.href;
 
 export function FloatingContacts() {
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [isOpen]);
 
   return (
-    <div className="fixed z-50 right-6 bottom-6 flex flex-col items-center gap-3">
+    <div ref={ref} className="fixed z-50 right-6 bottom-6 flex flex-col items-center gap-3">
       <div
         className={`flex flex-col gap-3 items-center transition-all duration-200 ease-out ${
           isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"

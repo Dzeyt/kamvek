@@ -16,8 +16,8 @@ export const CONTACTS = {
     href: "mailto:kamenveka@yandex.ru",
   },
   messengers: [
-    { name: "Telegram", href: "https://t.me/kamvek", label: "Написать в Telegram" },
-    { name: "MAX", href: "https://vk.me/kamvek", label: "Написать в MAX" },
+    { name: "Telegram", href: "https://t.me/ruskamvekolga", label: "Написать в Telegram" },
+    { name: "MAX", href: "https://max.ru/kamvek", label: "Написать в MAX" },
   ],
   workingHours: "Пн–Пт: 9:00 – 18:00",
   responseNote: "Мы свяжемся с вами в течение рабочего дня.",
