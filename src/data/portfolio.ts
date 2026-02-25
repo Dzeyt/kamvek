@@ -4,11 +4,12 @@
 
 export type PortfolioCategory =
   | "Все"
-  | "Без категории"
   | "Разное"
   | "Столешницы"
   | "Лестницы и ступени"
   | "Подоконники"
+  | "Камины и барбекю"
+  | "Полы"
   | "Камины"
   | "Барбекю"
   | "Ванные и санузлы"
@@ -29,23 +30,15 @@ export const PORTFOLIO_CATEGORIES: PortfolioCategory[] = [
   "Лестницы и ступени",
   "Столешницы",
   "Подоконники",
-  "Камины",
-  "Барбекю",
+  "Камины и барбекю",
+  "Полы",
   "Ванные и санузлы",
   "Входные группы",
   "Социально значимые объекты",
   "Разное",
-  "Без категории",
 ];
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
-  {
-    "id": "01733fd1-600f-444d-8515-6c2ab166a5c8",
-    "src": "/images/portfolio/all/01733fd1-600f-444d-8515-6c2ab166a5c8.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
   {
     "id": "12ddd795-6edc-443f-9de9-04769999ddd0",
     "src": "/images/portfolio/all/12ddd795-6edc-443f-9de9-04769999ddd0.jpg",
@@ -54,31 +47,10 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "2e998fcd-1477-49da-a85b-53cff2a204b8",
-    "src": "/images/portfolio/all/2e998fcd-1477-49da-a85b-53cff2a204b8.jpg",
+    "id": "95ee9953-7a9c-42c7-9a8a-a341e7dfbea2",
+    "src": "/images/portfolio/all/95ee9953-7a9c-42c7-9a8a-a341e7dfbea2.jpg",
     "categories": [
-      "Камины"
-    ]
-  },
-  {
-    "id": "3007a66f-1b1b-49a0-b2e1-f9bac3391996",
-    "src": "/images/portfolio/all/3007a66f-1b1b-49a0-b2e1-f9bac3391996.jpg",
-    "categories": [
-      "Столешницы"
-    ]
-  },
-  {
-    "id": "302a1ac0-8a0c-485b-82d0-8ff8e9f44bc1",
-    "src": "/images/portfolio/all/302a1ac0-8a0c-485b-82d0-8ff8e9f44bc1.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
-    "id": "419378ba-0118-42cb-ac3a-446c96695dc0",
-    "src": "/images/portfolio/all/419378ba-0118-42cb-ac3a-446c96695dc0.jpg",
-    "categories": [
-      "Разное"
+      "Ванные и санузлы"
     ]
   },
   {
@@ -90,10 +62,25 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "507397de-437a-4468-a67c-452659161588",
-    "src": "/images/portfolio/all/507397de-437a-4468-a67c-452659161588.jpg",
+    "id": "889538c9-aae0-4bb7-85df-fa0a211da1c9",
+    "src": "/images/portfolio/all/889538c9-aae0-4bb7-85df-fa0a211da1c9.jpg",
     "categories": [
-      "Входные группы"
+      "Входные группы",
+      "Лестницы и ступени"
+    ]
+  },
+  {
+    "id": "2e998fcd-1477-49da-a85b-53cff2a204b8",
+    "src": "/images/portfolio/all/2e998fcd-1477-49da-a85b-53cff2a204b8.jpg",
+    "categories": [
+      "Камины"
+    ]
+  },
+  {
+    "id": "302a1ac0-8a0c-485b-82d0-8ff8e9f44bc1",
+    "src": "/images/portfolio/all/302a1ac0-8a0c-485b-82d0-8ff8e9f44bc1.jpg",
+    "categories": [
+      "Камины"
     ]
   },
   {
@@ -126,83 +113,10 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "889538c9-aae0-4bb7-85df-fa0a211da1c9",
-    "src": "/images/portfolio/all/889538c9-aae0-4bb7-85df-fa0a211da1c9.jpg",
-    "categories": [
-      "Входные группы",
-      "Лестницы и ступени"
-    ]
-  },
-  {
-    "id": "8bfc1f91-be7d-443e-bdec-72c66fc8e2d9",
-    "src": "/images/portfolio/all/8bfc1f91-be7d-443e-bdec-72c66fc8e2d9.jpg",
-    "categories": [
-      "Камины",
-      "Барбекю"
-    ]
-  },
-  {
-    "id": "8c2f908938b696cac4cfd8af0a99ed90_1_0_art",
-    "src": "/images/portfolio/all/8c2f908938b696cac4cfd8af0a99ed90_1_0_art.jpg",
-    "categories": [
-      "Без категории"
-    ]
-  },
-  {
-    "id": "95ee9953-7a9c-42c7-9a8a-a341e7dfbea2",
-    "src": "/images/portfolio/all/95ee9953-7a9c-42c7-9a8a-a341e7dfbea2.jpg",
-    "categories": [
-      "Ванные и санузлы"
-    ]
-  },
-  {
-    "id": "998d19f4-e6d1-4585-a860-572e0eda7fef",
-    "src": "/images/portfolio/all/998d19f4-e6d1-4585-a860-572e0eda7fef.jpg",
-    "categories": [
-      "Ванные и санузлы"
-    ]
-  },
-  {
     "id": "b1de8206-298e-4d63-95fa-ccda239b231e",
     "src": "/images/portfolio/all/b1de8206-298e-4d63-95fa-ccda239b231e.jpg",
     "categories": [
       "Столешницы"
-    ]
-  },
-  {
-    "id": "b4a657c5-212b-4a56-b0fe-bf3ad4c47614",
-    "src": "/images/portfolio/all/b4a657c5-212b-4a56-b0fe-bf3ad4c47614.jpg",
-    "categories": [
-      "Разное"
-    ]
-  },
-  {
-    "id": "b54b978c-64d0-4eca-ba41-1e5ce0f972dd",
-    "src": "/images/portfolio/all/b54b978c-64d0-4eca-ba41-1e5ce0f972dd.jpg",
-    "categories": [
-      "Входные группы",
-      "Лестницы и ступени"
-    ]
-  },
-  {
-    "id": "d514d01c-0e6d-4be8-8a48-1436ebb98748",
-    "src": "/images/portfolio/all/d514d01c-0e6d-4be8-8a48-1436ebb98748.jpg",
-    "categories": [
-      "Социально значимые объекты"
-    ]
-  },
-  {
-    "id": "e179bd19-0d69-4055-acdb-0d773e3f733b",
-    "src": "/images/portfolio/all/e179bd19-0d69-4055-acdb-0d773e3f733b.jpg",
-    "categories": [
-      "Социально значимые объекты"
-    ]
-  },
-  {
-    "id": "e92bbcdf-952c-4e45-8d33-ba9f0ec3a01d",
-    "src": "/images/portfolio/all/e92bbcdf-952c-4e45-8d33-ba9f0ec3a01d.jpg",
-    "categories": [
-      "Без категории"
     ]
   },
   {
@@ -241,38 +155,10 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_0208",
-    "src": "/images/portfolio/all/img_0208.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
-    "id": "img_0269",
-    "src": "/images/portfolio/all/img_0269.jpg",
-    "categories": [
-      "Без категории"
-    ]
-  },
-  {
     "id": "img_0319",
     "src": "/images/portfolio/all/img_0319.jpg",
     "categories": [
       "Столешницы"
-    ]
-  },
-  {
-    "id": "img_0522",
-    "src": "/images/portfolio/all/img_0522.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
-    "id": "img_0540",
-    "src": "/images/portfolio/all/img_0540.jpg",
-    "categories": [
-      "Камины"
     ]
   },
   {
@@ -290,38 +176,10 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_0589",
-    "src": "/images/portfolio/all/img_0589.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
-    "id": "img_0599",
-    "src": "/images/portfolio/all/img_0599.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
-    "id": "img_0615",
-    "src": "/images/portfolio/all/img_0615.jpg",
-    "categories": [
-      "Ванные и санузлы"
-    ]
-  },
-  {
     "id": "img_0638",
     "src": "/images/portfolio/all/img_0638.jpg",
     "categories": [
       "Камины"
-    ]
-  },
-  {
-    "id": "img_0906",
-    "src": "/images/portfolio/all/img_0906.jpg",
-    "categories": [
-      "Без категории"
     ]
   },
   {
@@ -333,36 +191,8 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_0918",
-    "src": "/images/portfolio/all/img_0918.jpg",
-    "categories": [
-      "Без категории"
-    ]
-  },
-  {
-    "id": "img_0927",
-    "src": "/images/portfolio/all/img_0927.jpg",
-    "categories": [
-      "Подоконники"
-    ]
-  },
-  {
-    "id": "img_0962",
-    "src": "/images/portfolio/all/img_0962.jpg",
-    "categories": [
-      "Ванные и санузлы"
-    ]
-  },
-  {
     "id": "img_1010",
     "src": "/images/portfolio/all/img_1010.jpg",
-    "categories": [
-      "Ванные и санузлы"
-    ]
-  },
-  {
-    "id": "img_1011",
-    "src": "/images/portfolio/all/img_1011.jpg",
     "categories": [
       "Ванные и санузлы"
     ]
@@ -396,20 +226,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_1136",
-    "src": "/images/portfolio/all/img_1136.jpg",
-    "categories": [
-      "Ванные и санузлы"
-    ]
-  },
-  {
-    "id": "img_1137",
-    "src": "/images/portfolio/all/img_1137.jpg",
-    "categories": [
-      "Ванные и санузлы"
-    ]
-  },
-  {
     "id": "img_1182",
     "src": "/images/portfolio/all/img_1182.jpg",
     "categories": [
@@ -419,13 +235,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     "id": "img_1184",
     "src": "/images/portfolio/all/img_1184.jpg",
-    "categories": [
-      "Ванные и санузлы"
-    ]
-  },
-  {
-    "id": "img_1189",
-    "src": "/images/portfolio/all/img_1189.jpg",
     "categories": [
       "Ванные и санузлы"
     ]
@@ -466,13 +275,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_1438",
-    "src": "/images/portfolio/all/img_1438.jpg",
-    "categories": [
-      "Разное"
-    ]
-  },
-  {
     "id": "img_1451",
     "src": "/images/portfolio/all/img_1451.jpg",
     "categories": [
@@ -491,20 +293,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "src": "/images/portfolio/all/img_1514.jpg",
     "categories": [
       "Входные группы"
-    ]
-  },
-  {
-    "id": "img_1625",
-    "src": "/images/portfolio/all/img_1625.jpg",
-    "categories": [
-      "Столешницы"
-    ]
-  },
-  {
-    "id": "img_1649",
-    "src": "/images/portfolio/all/img_1649.jpg",
-    "categories": [
-      "Столешницы"
     ]
   },
   {
@@ -534,20 +322,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "src": "/images/portfolio/all/img_1989.jpg",
     "categories": [
       "Ванные и санузлы"
-    ]
-  },
-  {
-    "id": "img_2068",
-    "src": "/images/portfolio/all/img_2068.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
-    "id": "img_2071",
-    "src": "/images/portfolio/all/img_2071.jpg",
-    "categories": [
-      "Камины"
     ]
   },
   {
@@ -586,38 +360,10 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_2647",
-    "src": "/images/portfolio/all/img_2647.jpg",
-    "categories": [
-      "Социально значимые объекты"
-    ]
-  },
-  {
-    "id": "img_2705",
-    "src": "/images/portfolio/all/img_2705.jpg",
-    "categories": [
-      "Лестницы и ступени"
-    ]
-  },
-  {
     "id": "img_2733",
     "src": "/images/portfolio/all/img_2733.jpg",
     "categories": [
       "Ванные и санузлы"
-    ]
-  },
-  {
-    "id": "img_2815",
-    "src": "/images/portfolio/all/img_2815.jpg",
-    "categories": [
-      "Разное"
-    ]
-  },
-  {
-    "id": "img_2969",
-    "src": "/images/portfolio/all/img_2969.jpg",
-    "categories": [
-      "Камины"
     ]
   },
   {
@@ -628,52 +374,10 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_3175",
-    "src": "/images/portfolio/all/img_3175.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
     "id": "img_3185",
     "src": "/images/portfolio/all/img_3185.jpg",
     "categories": [
       "Лестницы и ступени"
-    ]
-  },
-  {
-    "id": "img_3285",
-    "src": "/images/portfolio/all/img_3285.jpg",
-    "categories": [
-      "Без категории"
-    ]
-  },
-  {
-    "id": "img_3393",
-    "src": "/images/portfolio/all/img_3393.jpg",
-    "categories": [
-      "Столешницы"
-    ]
-  },
-  {
-    "id": "img_3501",
-    "src": "/images/portfolio/all/img_3501.jpg",
-    "categories": [
-      "Социально значимые объекты"
-    ]
-  },
-  {
-    "id": "img_3502",
-    "src": "/images/portfolio/all/img_3502.jpg",
-    "categories": [
-      "Социально значимые объекты"
-    ]
-  },
-  {
-    "id": "img_3504",
-    "src": "/images/portfolio/all/img_3504.jpg",
-    "categories": [
-      "Социально значимые объекты"
     ]
   },
   {
@@ -725,7 +429,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_4634",
     "src": "/images/portfolio/all/img_4634.jpg",
     "categories": [
-      "Без категории"
+      "Полы"
     ]
   },
   {
@@ -828,22 +532,8 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_5387",
-    "src": "/images/portfolio/all/img_5387.jpg",
-    "categories": [
-      "Столешницы"
-    ]
-  },
-  {
     "id": "img_5787",
     "src": "/images/portfolio/all/img_5787.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
-    "id": "img_5841",
-    "src": "/images/portfolio/all/img_5841.jpg",
     "categories": [
       "Камины"
     ]
@@ -858,13 +548,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     "id": "img_6261",
     "src": "/images/portfolio/all/img_6261.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
-    "id": "img_6262",
-    "src": "/images/portfolio/all/img_6262.jpg",
     "categories": [
       "Камины"
     ]
@@ -887,15 +570,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_6773",
     "src": "/images/portfolio/all/img_6773.jpg",
     "categories": [
-      "Без категории"
-    ]
-  },
-  {
-    "id": "img_6932",
-    "src": "/images/portfolio/all/img_6932.jpg",
-    "categories": [
-      "Лестницы и ступени",
-      "Входные группы"
+      "Полы"
     ]
   },
   {
@@ -903,13 +578,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "src": "/images/portfolio/all/img_7229.jpg",
     "categories": [
       "Столешницы"
-    ]
-  },
-  {
-    "id": "img_7289",
-    "src": "/images/portfolio/all/img_7289.jpg",
-    "categories": [
-      "Камины"
     ]
   },
   {
@@ -931,13 +599,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "src": "/images/portfolio/all/img_7330.jpg",
     "categories": [
       "Социально значимые объекты"
-    ]
-  },
-  {
-    "id": "img_7331",
-    "src": "/images/portfolio/all/img_7331.jpg",
-    "categories": [
-      "Без категории"
     ]
   },
   {
@@ -980,13 +641,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "src": "/images/portfolio/all/img_7415.jpg",
     "categories": [
       "Камины"
-    ]
-  },
-  {
-    "id": "img_7604",
-    "src": "/images/portfolio/all/img_7604.jpg",
-    "categories": [
-      "Разное"
     ]
   },
   {
@@ -1088,14 +742,14 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_8463",
     "src": "/images/portfolio/all/img_8463.jpg",
     "categories": [
-      "Без категории"
+      "Камины"
     ]
   },
   {
     "id": "img_8465",
     "src": "/images/portfolio/all/img_8465.jpg",
     "categories": [
-      "Без категории"
+      "Полы"
     ]
   },
   {
@@ -1106,13 +760,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_8560",
-    "src": "/images/portfolio/all/img_8560.jpg",
-    "categories": [
-      "Разное"
-    ]
-  },
-  {
     "id": "img_8562",
     "src": "/images/portfolio/all/img_8562.jpg",
     "categories": [
@@ -1120,31 +767,17 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_8563",
-    "src": "/images/portfolio/all/img_8563.jpg",
-    "categories": [
-      "Без категории"
-    ]
-  },
-  {
     "id": "img_8570",
     "src": "/images/portfolio/all/img_8570.jpg",
     "categories": [
-      "Без категории"
+      "Столешницы"
     ]
   },
   {
     "id": "img_8571",
     "src": "/images/portfolio/all/img_8571.jpg",
     "categories": [
-      "Без категории"
-    ]
-  },
-  {
-    "id": "img_8574",
-    "src": "/images/portfolio/all/img_8574.jpg",
-    "categories": [
-      "Разное"
+      "Столешницы"
     ]
   },
   {
@@ -1152,27 +785,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "src": "/images/portfolio/all/img_8576.jpg",
     "categories": [
       "Ванные и санузлы"
-    ]
-  },
-  {
-    "id": "img_8581",
-    "src": "/images/portfolio/all/img_8581.jpg",
-    "categories": [
-      "Ванные и санузлы"
-    ]
-  },
-  {
-    "id": "img_8582",
-    "src": "/images/portfolio/all/img_8582.jpg",
-    "categories": [
-      "Разное"
-    ]
-  },
-  {
-    "id": "img_8584",
-    "src": "/images/portfolio/all/img_8584.jpg",
-    "categories": [
-      "Разное"
     ]
   },
   {
@@ -1204,17 +816,10 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     ]
   },
   {
-    "id": "img_8970",
-    "src": "/images/portfolio/all/img_8970.jpg",
-    "categories": [
-      "Камины"
-    ]
-  },
-  {
     "id": "img_9108",
     "src": "/images/portfolio/all/img_9108.jpg",
     "categories": [
-      "Без категории"
+      "Входные группы"
     ]
   },
   {
@@ -1223,13 +828,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "categories": [
       "Камины",
       "Барбекю"
-    ]
-  },
-  {
-    "id": "img_9371",
-    "src": "/images/portfolio/all/img_9371.jpg",
-    "categories": [
-      "Без категории"
     ]
   },
   {
@@ -1250,7 +848,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_9610",
     "src": "/images/portfolio/all/img_9610.jpg",
     "categories": [
-      "Без категории"
+      "Столешницы"
     ]
   },
   {
@@ -1280,5 +878,76 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "categories": [
       "Лестницы и ступени"
     ]
-  }
+  },
+  {
+    "id": "img_0906",
+    "src": "/images/portfolio/all/img_0906.jpg",
+    "categories": [
+      "Столешницы"
+    ]
+  },
+  {
+    "id": "507397de-437a-4468-a67c-452659161588",
+    "src": "/images/portfolio/all/507397de-437a-4468-a67c-452659161588.jpg",
+    "categories": [
+      "Входные группы"
+    ]
+  },
+  {
+    "id": "img_0927",
+    "src": "/images/portfolio/all/img_0927.jpg",
+    "categories": [
+      "Подоконники"
+    ]
+  },
+  {
+    "id": "img_1438",
+    "src": "/images/portfolio/all/img_1438.jpg",
+    "categories": [
+      "Разное"
+    ]
+  },
+  {
+    "id": "img_8574",
+    "src": "/images/portfolio/all/img_8574.jpg",
+    "categories": [
+      "Разное"
+    ]
+  },
+  {
+    "id": "img_8582",
+    "src": "/images/portfolio/all/img_8582.jpg",
+    "categories": [
+      "Разное"
+    ]
+  },
+  {
+    "id": "img_8584",
+    "src": "/images/portfolio/all/img_8584.jpg",
+    "categories": [
+      "Разное"
+    ]
+  },
+  {
+    "id": "img_8560",
+    "src": "/images/portfolio/all/img_8560.jpg",
+    "categories": [
+      "Разное"
+    ]
+  },
+  {
+    "id": "419378ba-0118-42cb-ac3a-446c96695dc0",
+    "src": "/images/portfolio/all/419378ba-0118-42cb-ac3a-446c96695dc0.jpg",
+    "categories": [
+      "Разное"
+    ]
+  },
+  {
+    "id": "b4a657c5-212b-4a56-b0fe-bf3ad4c47614",
+    "src": "/images/portfolio/all/b4a657c5-212b-4a56-b0fe-bf3ad4c47614.jpg",
+    "categories": [
+      "Разное"
+    ]
+  },
+
 ];

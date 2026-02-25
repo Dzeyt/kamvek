@@ -65,6 +65,8 @@
 
 /* Регистрируем цвета в Tailwind v4 */
 @theme inline {
+  --breakpoint-header: 1080px;
+
   --color-background: var(--background);
   --color-background-dark: var(--background-dark);
   --color-surface: var(--surface);

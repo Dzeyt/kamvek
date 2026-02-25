@@ -1,25 +1,28 @@
-export const metadata = {
-  title: "Каталог камня",
-  description: "Каталог образцов мрамора и гранита. Компактная сетка, быстрый просмотр.",
+import type { Metadata } from "next";
+import { KatalogKamnyaClient } from "./KatalogKamnyaClient";
+
+export const metadata: Metadata = {
+  title: "Каталог камня — Мрамор, Гранит, Кварцит, Оникс, Травертин | КАМВЕК",
+  description:
+    "Каталог натурального камня: мрамор, гранит, кварцит, оникс и травертин. Подберём материал для вашего проекта — столешницы, ступени, облицовка и другие изделия.",
+  keywords: [
+    "каталог камня",
+    "мрамор",
+    "гранит",
+    "кварцит",
+    "оникс",
+    "травертин",
+    "натуральный камень",
+    "КАМВЕК",
+  ],
+  openGraph: {
+    title: "Каталог камня | КАМВЕК",
+    description:
+      "Коллекция натурального камня для ваших проектов. Мрамор, гранит, кварцит, оникс и травертин.",
+    type: "website",
+  },
 };
 
 export default function KatalogKamnyaPage() {
-  return (
-    <main className="min-h-screen bg-background">
-      <section className="py-16 md:py-20">
-        <div className="container">
-          <h1
-            className="text-4xl md:text-6xl font-semibold text-foreground mb-4"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Каталог камня
-          </h1>
-          <p className="text-foreground-muted max-w-2xl">
-            Страница в разработке — здесь будут образцы мрамора и гранита.
-          </p>
-        </div>
-      </section>
-    </main>
-  );
+  return <KatalogKamnyaClient />;
 }
-

@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import clsx from "clsx";
 
 import type { PortfolioCategory, PortfolioItem } from "@/data/portfolio";
 import { PORTFOLIO_CATEGORIES } from "@/data/portfolio";
+import { CATEGORY_PRIORITY_IDS } from "@/data/portfolio-order";
 
 type Props = {
   items: PortfolioItem[];
@@ -15,18 +16,42 @@ type Props = {
 const PAGE_SIZE = 24;
 
 export function PortfolioGallery({ items }: Props) {
+  const shouldReduceMotion = useReducedMotion();
   const [category, setCategory] = useState<PortfolioCategory>("Все");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const filtered = useMemo(() => {
     if (category === "Все") return items;
+    if (category === "Камины и барбекю") {
+      return items.filter(
+        (x) =>
+          x.categories.includes("Камины и барбекю") ||
+          x.categories.includes("Камины") ||
+          x.categories.includes("Барбекю")
+      );
+    }
     return items.filter((x) => x.categories.includes(category));
   }, [items, category]);
 
-  const visible = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
+  const ordered = useMemo(() => {
+    const priority = CATEGORY_PRIORITY_IDS[category];
+    if (!priority || priority.length === 0) return filtered;
 
-  const canLoadMore = visibleCount < filtered.length;
+    const rank = new Map(priority.map((id, index) => [id, index]));
+    return [...filtered].sort((a, b) => {
+      const aRank = rank.get(a.id);
+      const bRank = rank.get(b.id);
+      if (aRank === undefined && bRank === undefined) return 0;
+      if (aRank === undefined) return 1;
+      if (bRank === undefined) return -1;
+      return aRank - bRank;
+    });
+  }, [filtered, category]);
+
+  const visible = useMemo(() => ordered.slice(0, visibleCount), [ordered, visibleCount]);
+
+  const canLoadMore = visibleCount < ordered.length;
 
   // Reset pagination when filter changes
   useEffect(() => {
@@ -34,7 +59,16 @@ export function PortfolioGallery({ items }: Props) {
     setActiveIndex(null);
   }, [category]);
 
-  // Lightbox keyboard controls
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (activeIndex !== null) {
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = ""; };
+    }
+    document.body.style.overflow = "";
+  }, [activeIndex]);
+
+  // Lightbox keyboard controls (circular navigation)
   useEffect(() => {
     if (activeIndex === null) return;
     const onKeyDown = (e: KeyboardEvent) => {
@@ -42,13 +76,13 @@ export function PortfolioGallery({ items }: Props) {
       if (e.key === "ArrowRight") {
         setActiveIndex((prev) => {
           if (prev === null) return prev;
-          return Math.min(prev + 1, visible.length - 1);
+          return (prev + 1) % visible.length;
         });
       }
       if (e.key === "ArrowLeft") {
         setActiveIndex((prev) => {
           if (prev === null) return prev;
-          return Math.max(prev - 1, 0);
+          return (prev - 1 + visible.length) % visible.length;
         });
       }
     };
@@ -82,28 +116,37 @@ export function PortfolioGallery({ items }: Props) {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-        {visible.map((item, idx) => (
-          <button
-            key={item.id}
-            onClick={() => setActiveIndex(idx)}
-            className="group relative overflow-hidden rounded-lg bg-marble-light"
-            style={{ boxShadow: "var(--shadow-sm)" }}
-            aria-label={item.title ? item.title : "Открыть фото"}
-          >
-            <div className="relative aspect-[4/3]">
-              <Image
-                src={item.src}
-                alt={item.title || "Работа КАМВЕК"}
-                fill
-                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-            </div>
-          </button>
-        ))}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={category}
+          initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={shouldReduceMotion ? {} : { opacity: 0, y: -10 }}
+          transition={{ duration: 0.25 }}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4"
+        >
+          {visible.map((item, idx) => (
+            <button
+              key={item.id}
+              onClick={() => setActiveIndex(idx)}
+              className="group relative overflow-hidden rounded-lg bg-marble-light"
+              style={{ boxShadow: "var(--shadow-sm)" }}
+              aria-label={item.title ? item.title : "Открыть фото"}
+            >
+              <div className="relative aspect-[4/3]">
+                <Image
+                  src={item.src}
+                  alt={item.title || "Работа КАМВЕК"}
+                  fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+              </div>
+            </button>
+          ))}
+        </motion.div>
+      </AnimatePresence>
 
       {/* Load more */}
       <div className="flex justify-center">
@@ -113,11 +156,11 @@ export function PortfolioGallery({ items }: Props) {
             className="px-6 py-3 rounded-md bg-surface border border-marble-vein hover:border-accent transition-colors"
             style={{ boxShadow: "var(--shadow-sm)" }}
           >
-            Показать ещё ({filtered.length - visibleCount})
+            Показать ещё ({ordered.length - visibleCount})
           </button>
         ) : (
           <p className="text-foreground-muted text-sm">
-            Показано {visible.length} из {filtered.length}
+            Показано {visible.length} из {ordered.length}
           </p>
         )}
       </div>
@@ -126,7 +169,7 @@ export function PortfolioGallery({ items }: Props) {
       <AnimatePresence>
         {activeItem ? (
           <motion.div
-            className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -163,33 +206,37 @@ export function PortfolioGallery({ items }: Props) {
               </div>
 
               {/* Controls */}
+              {/* Close */}
               <button
-                className="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white transition-colors"
+                className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors flex items-center justify-center"
                 onClick={() => setActiveIndex(null)}
                 aria-label="Закрыть"
               >
-                ✕
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
               </button>
 
+              {/* Prev */}
               <button
-                className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-r-lg bg-black/40 hover:bg-black/60 text-white transition-colors"
-                onClick={() => setActiveIndex((i) => (i === null ? i : Math.max(i - 1, 0)))}
+                className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-14 rounded-r-lg bg-black/40 hover:bg-black/60 text-white transition-colors flex items-center justify-center"
+                onClick={() => setActiveIndex((i) => (i === null ? i : (i - 1 + visible.length) % visible.length))}
                 aria-label="Предыдущее фото"
-                disabled={activeIndex === 0}
               >
-                ‹
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
               </button>
+
+              {/* Next */}
               <button
-                className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-l-lg bg-black/40 hover:bg-black/60 text-white transition-colors"
-                onClick={() =>
-                  setActiveIndex((i) =>
-                    i === null ? i : Math.min(i + 1, visible.length - 1)
-                  )
-                }
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-14 rounded-l-lg bg-black/40 hover:bg-black/60 text-white transition-colors flex items-center justify-center"
+                onClick={() => setActiveIndex((i) => (i === null ? i : (i + 1) % visible.length))}
                 aria-label="Следующее фото"
-                disabled={activeIndex === visible.length - 1}
               >
-                ›
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
               </button>
             </motion.div>
           </motion.div>
