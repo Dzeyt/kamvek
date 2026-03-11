@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -25,6 +27,24 @@ const MaxIcon = (
     </g>
   </svg>
 );
+
+const VkIcon = (
+  <svg className="w-full h-full" viewBox="0 0 101 100" fill="none" aria-hidden="true">
+    <circle cx="50.5" cy="50" r="50" fill="#1A1614" />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17.3752 30.4169C17.9168 56.4169 30.9167 72.0418 53.7084 72.0418H55.0003V57.1668C63.3753 58.0001 69.7082 64.1252 72.2498 72.0418H84.0835C80.8335 60.2085 72.2914 53.6668 66.9581 51.1668C72.2914 48.0835 79.7915 40.5835 81.5831 30.4169H70.8328C68.4995 38.6669 61.5836 46.1668 55.0003 46.8751V30.4169H44.2499V59.2501C37.5833 57.5835 29.1668 49.5002 28.7918 30.4169H17.3752Z"
+      fill="white"
+    />
+  </svg>
+);
+
+const FOOTER_ICONS: Record<string, React.ReactNode> = {
+  Telegram: TelegramIcon,
+  MAX: MaxIcon,
+  VK: VkIcon,
+};
 
 const NAV_LINKS = [
   { href: "/", label: "Главная" },
@@ -126,17 +146,20 @@ export function Footer() {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              <span>{CONTACTS.address.line}</span>
+              <span>г. Воскресенск, <span className="whitespace-nowrap">ул. Гаражная,</span> <span className="whitespace-nowrap">д. 1-А</span></span>
             </div>
-            <a
-              href={CONTACTS.phone.href}
-              className="flex items-center gap-2 text-foreground-on-dark/90 hover:text-accent transition-colors w-fit"
-            >
-              <svg className="w-4 h-4 shrink-0 text-foreground-on-dark/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.82.37 1.6.72 2.33a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.73-1.28a2 2 0 0 1 2.11-.45c.73.35 1.51.6 2.33.72A2 2 0 0 1 22 16.92z" />
-              </svg>
-              <span>{CONTACTS.phone.display}</span>
-            </a>
+            {CONTACTS.phones.map((phone) => (
+              <a
+                key={phone.href}
+                href={phone.href}
+                className="flex items-center gap-2 text-foreground-on-dark/90 hover:text-accent transition-colors w-fit"
+              >
+                <svg className="w-4 h-4 shrink-0 text-foreground-on-dark/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.82.37 1.6.72 2.33a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.73-1.28a2 2 0 0 1 2.11-.45c.73.35 1.51.6 2.33.72A2 2 0 0 1 22 16.92z" />
+                </svg>
+                <span>{phone.display}</span>
+              </a>
+            ))}
             <a
               href={CONTACTS.email.href}
               className="flex items-center gap-2 text-foreground-on-dark/90 hover:text-accent transition-colors w-fit"
@@ -164,7 +187,7 @@ export function Footer() {
                   className="inline-flex items-center justify-center w-9 h-9 rounded-full overflow-hidden bg-white border border-marble-vein/70 hover:opacity-80 transition-opacity"
                   aria-label={m.label}
                 >
-                  {m.name === "Telegram" ? TelegramIcon : MaxIcon}
+                  {FOOTER_ICONS[m.name]}
                 </a>
               ))}
             </div>

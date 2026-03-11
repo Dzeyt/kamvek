@@ -60,6 +60,7 @@ export function PortfolioGallery({ items }: Props) {
 
   const canLoadMore = visibleCount < ordered.length;
 
+  // Reset pagination when category changes
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
     setActiveIndex(-1);
@@ -119,7 +120,7 @@ export function PortfolioGallery({ items }: Props) {
               <div className="relative aspect-[4/3]">
                 <Image
                   src={item.src}
-                  alt={item.title || "Работа КАМВЕК"}
+                  alt={item.title ? `${item.title} — ${item.categories[0]} из натурального камня` : `${item.categories[0]} из камня — проект КАМВЕК`}
                   fill
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"

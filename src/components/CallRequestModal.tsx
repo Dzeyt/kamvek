@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { CONTACTS } from "@/data/contacts";
 
 type Props = {
   open: boolean;
@@ -19,10 +20,10 @@ function formatPhone(input: string): string {
   local = local.slice(0, 10);
 
   if (local.length === 0) return digits.length > 0 ? "+7" : "";
-  if (local.length <= 3) return `+7 (${local}`;
-  if (local.length <= 6) return `+7 (${local.slice(0, 3)}) ${local.slice(3)}`;
-  if (local.length <= 8) return `+7 (${local.slice(0, 3)}) ${local.slice(3, 6)}-${local.slice(6)}`;
-  return `+7 (${local.slice(0, 3)}) ${local.slice(3, 6)}-${local.slice(6, 8)}-${local.slice(8, 10)}`;
+  if (local.length <= 3) return `+7(${local}`;
+  if (local.length <= 6) return `+7(${local.slice(0, 3)})${local.slice(3)}`;
+  if (local.length <= 8) return `+7(${local.slice(0, 3)})${local.slice(3, 6)}-${local.slice(6)}`;
+  return `+7(${local.slice(0, 3)})${local.slice(3, 6)}-${local.slice(6, 8)}-${local.slice(8, 10)}`;
 }
 
 function isValidPhone(value: string): boolean {
@@ -36,6 +37,7 @@ export function CallRequestModal({ open, onClose }: Props) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [comment, setComment] = useState("");
+  const [honeypot, setHoneypot] = useState(""); // Honeypot field
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const canSubmit = useMemo(() => {
@@ -80,19 +82,31 @@ export function CallRequestModal({ open, onClose }: Props) {
     setName("");
     setPhone("");
     setComment("");
+    setHoneypot("");
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!canSubmit) return;
 
+    // Honeypot check — если заполнено, это бот
+    if (honeypot) {
+      console.warn("[CallRequestModal] Honeypot triggered, blocking submission");
+      setStatus("error");
+      return;
+    }
+
     setStatus("loading");
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, comment }),
+        body: JSON.stringify({ name, phone, comment, page: window.location.pathname }),
+        signal: controller.signal,
       });
+      clearTimeout(timeout);
       if (!res.ok) throw new Error("Server error");
       setStatus("success");
     } catch {
@@ -169,6 +183,32 @@ export function CallRequestModal({ open, onClose }: Props) {
                     </button>
                   </div>
                 </div>
+              ) : status === "error" ? (
+                <div className="text-center py-6">
+                  <p
+                    className="text-2xl font-semibold text-foreground mb-3"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    Что-то пошло не так
+                  </p>
+                  <p className="text-foreground-muted mb-2">
+                    Заявка не отправилась — попробуйте ещё раз или свяжитесь с нами напрямую:
+                  </p>
+                  <a
+                    href={CONTACTS.phones[0].href}
+                    className="inline-block text-accent font-semibold text-lg hover:underline"
+                  >
+                    {CONTACTS.phones[0].display}
+                  </a>
+                  <div className="mt-6 flex justify-center">
+                    <button
+                      className="px-5 py-3 rounded-md bg-accent text-foreground-on-dark hover:bg-accent-hover transition-colors"
+                      onClick={() => setStatus("idle")}
+                    >
+                      Попробовать снова
+                    </button>
+                  </div>
+                </div>
               ) : (
                 <form className="space-y-4" onSubmit={handleSubmit} noValidate>
                   <div className="space-y-1.5">
@@ -197,7 +237,7 @@ export function CallRequestModal({ open, onClose }: Props) {
                       value={phone}
                       onChange={handlePhoneChange}
                       className="w-full px-4 py-3 rounded-lg border border-marble-vein bg-background focus:outline-none focus:border-accent transition-colors"
-                      placeholder="+7 (___) ___-__-__"
+                      placeholder="+7(___) ___-__-__"
                       inputMode="tel"
                       autoComplete="tel"
                     />
@@ -216,11 +256,18 @@ export function CallRequestModal({ open, onClose }: Props) {
                     />
                   </div>
 
-                  {status === "error" && (
-                    <p className="text-sm text-red-500 text-center -mt-1">
-                      Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.
-                    </p>
-                  )}
+                  {/* Honeypot field — скрыто от людей, видно ботам */}
+                  <div style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} aria-hidden="true">
+                    <label htmlFor="modal-website">Website</label>
+                    <input
+                      id="modal-website"
+                      type="text"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
 
                   <button
                     type="submit"

@@ -34,6 +34,7 @@ export function Header() {
     return found?.href ?? null;
   }, [pathname]);
 
+  // Close mobile menu when route changes
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);

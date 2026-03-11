@@ -1,4 +1,3 @@
-/* eslint-disable */
 // Этот файл сгенерирован скриптом scripts/generate-portfolio-data.mjs
 // Если нужно перегенерировать: npm run portfolio:generate
 
@@ -12,7 +11,7 @@ export type PortfolioCategory =
   | "Полы"
   | "Камины"
   | "Барбекю"
-  | "Ванные и санузлы"
+  | "Санузлы и хамамы"
   | "Входные группы"
   | "Социально значимые объекты";
 
@@ -32,7 +31,7 @@ export const PORTFOLIO_CATEGORIES: PortfolioCategory[] = [
   "Подоконники",
   "Камины и барбекю",
   "Полы",
-  "Ванные и санузлы",
+  "Санузлы и хамамы",
   "Входные группы",
   "Социально значимые объекты",
   "Разное",
@@ -43,14 +42,14 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "12ddd795-6edc-443f-9de9-04769999ddd0",
     "src": "/images/portfolio/all/12ddd795-6edc-443f-9de9-04769999ddd0.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "95ee9953-7a9c-42c7-9a8a-a341e7dfbea2",
     "src": "/images/portfolio/all/95ee9953-7a9c-42c7-9a8a-a341e7dfbea2.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -109,7 +108,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "72067cd8-9908-47cd-93fc-3a79b5efe079",
     "src": "/images/portfolio/all/72067cd8-9908-47cd-93fc-3a79b5efe079.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -123,14 +122,49 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "fullsizerender",
     "src": "/images/portfolio/all/fullsizerender.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_0095",
     "src": "/images/portfolio/all/img_0095.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
+    ]
+  },
+  {
+    "id": "img_0094",
+    "src": "/images/portfolio/all/img_0094.jpg",
+    "categories": [
+      "Социально значимые объекты"
+    ]
+  },
+  {
+    "id": "img_0093",
+    "src": "/images/portfolio/all/img_0093.jpg",
+    "categories": [
+      "Социально значимые объекты"
+    ]
+  },
+  {
+    "id": "img_0090",
+    "src": "/images/portfolio/all/img_0090.jpg",
+    "categories": [
+      "Социально значимые объекты"
+    ]
+  },
+  {
+    "id": "img_0092",
+    "src": "/images/portfolio/all/img_0092.jpg",
+    "categories": [
+      "Столешницы"
+    ]
+  },
+  {
+    "id": "img_0091",
+    "src": "/images/portfolio/all/img_0091.jpg",
+    "categories": [
+      "Подоконники"
     ]
   },
   {
@@ -187,21 +221,21 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "src": "/images/portfolio/all/img_0910.jpg",
     "categories": [
       "Социально значимые объекты",
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_1010",
     "src": "/images/portfolio/all/img_1010.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_1012",
     "src": "/images/portfolio/all/img_1012.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -229,14 +263,14 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_1182",
     "src": "/images/portfolio/all/img_1182.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_1184",
     "src": "/images/portfolio/all/img_1184.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -264,7 +298,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_1299",
     "src": "/images/portfolio/all/img_1299.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -321,7 +355,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_1989",
     "src": "/images/portfolio/all/img_1989.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -342,28 +376,28 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_2275",
     "src": "/images/portfolio/all/img_2275.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_2332",
     "src": "/images/portfolio/all/img_2332.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_2492",
     "src": "/images/portfolio/all/img_2492.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_2733",
     "src": "/images/portfolio/all/img_2733.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -479,7 +513,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_5030",
     "src": "/images/portfolio/all/img_5030.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -500,7 +534,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_5216",
     "src": "/images/portfolio/all/img_5216.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -563,7 +597,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_6661",
     "src": "/images/portfolio/all/img_6661.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -626,7 +660,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_7394",
     "src": "/images/portfolio/all/img_7394.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -661,28 +695,28 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_7681",
     "src": "/images/portfolio/all/img_7681.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_7917",
     "src": "/images/portfolio/all/img_7917.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_7918",
     "src": "/images/portfolio/all/img_7918.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_7947",
     "src": "/images/portfolio/all/img_7947.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -756,7 +790,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_8557",
     "src": "/images/portfolio/all/img_8557.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -784,21 +818,21 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_8576",
     "src": "/images/portfolio/all/img_8576.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_8585",
     "src": "/images/portfolio/all/img_8585.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
     "id": "img_8588",
     "src": "/images/portfolio/all/img_8588.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {
@@ -812,7 +846,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     "id": "img_8595",
     "src": "/images/portfolio/all/img_8595.jpg",
     "categories": [
-      "Ванные и санузлы"
+      "Санузлы и хамамы"
     ]
   },
   {

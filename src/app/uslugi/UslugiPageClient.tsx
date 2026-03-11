@@ -71,8 +71,11 @@ export function UslugiPageClient() {
     <main className="min-h-screen">
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-background-dark py-24 md:py-36">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: "url('/images/hero/marble-dark-texture.jpg')" }}
+        />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_15%_0%,rgba(201,169,98,0.22),transparent_55%),radial-gradient(700px_circle_at_85%_80%,rgba(92,74,61,0.18),transparent_55%)]" />
-        <div className="absolute inset-0 opacity-10 bg-marble" />
         <div className="absolute inset-0 bg-gradient-to-b from-background-dark/10 via-background-dark/50 to-background-dark/80" />
 
         <div className="container relative z-10">
@@ -86,18 +89,18 @@ export function UslugiPageClient() {
                 })}
           >
             <h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-foreground-on-dark leading-tight tracking-tight max-w-3xl"
+              className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground-on-dark leading-tight tracking-tight max-w-3xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Услуги
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
+            <p className="mt-6 text-base sm:text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
               Изготавливаем изделия из мрамора, гранита, кварцита, оникса и травертина.
             </p>
             <div className="mt-8">
               <button
                 onClick={open}
-                className="px-8 py-4 rounded-md bg-accent text-foreground-on-dark hover:bg-accent-hover transition-colors font-medium text-lg max-[440px]:w-full"
+                className="px-6 py-3 sm:px-8 sm:py-4 rounded-md bg-accent text-foreground-on-dark hover:bg-accent-hover transition-colors font-medium text-base sm:text-lg max-[440px]:w-full"
               >
                 Заказать консультацию
               </button>
@@ -111,7 +114,7 @@ export function UslugiPageClient() {
         <div className="container">
           <motion.div className="mb-10 md:mb-12" {...reveal}>
             <h2
-              className="text-2xl md:text-3xl font-semibold text-foreground"
+              className="text-[30px] md:text-3xl font-semibold text-foreground"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Каталог услуг
@@ -166,7 +169,7 @@ export function UslugiPageClient() {
         <div className="container">
           <motion.div className="text-center mb-12 md:mb-14" {...reveal}>
             <h2
-              className="text-2xl md:text-3xl font-semibold text-foreground"
+              className="text-[30px] md:text-3xl font-semibold text-foreground"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Как мы работаем
@@ -212,23 +215,21 @@ export function UslugiPageClient() {
       <section className="py-16 md:py-20 bg-background">
         <div className="container">
           <motion.div
-            className="rounded-2xl border border-marble-vein bg-background-dark px-6 py-8 md:px-10 md:py-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between text-foreground-on-dark shadow-[var(--shadow-lg)]"
+            className="max-w-2xl mx-auto rounded-2xl border border-marble-vein/30 bg-background-dark text-foreground-on-dark px-6 py-10 md:px-12 md:py-14 shadow-[var(--shadow-lg)] text-center"
             {...reveal}
           >
-            <div>
-              <h2
-                className="text-2xl md:text-3xl font-semibold"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Нужна консультация по проекту?
-              </h2>
-              <p className="mt-2 text-foreground-on-dark/70 max-w-lg">
-                Опишите задачу — подберём камень, рассчитаем стоимость и сроки.
-              </p>
-            </div>
+            <h2
+              className="text-[28px] md:text-3xl font-semibold mb-4"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Нужна консультация по проекту?
+            </h2>
+            <p className="text-foreground-on-dark/65 mb-8 leading-relaxed max-w-md mx-auto">
+              Опишите задачу — подберём камень, рассчитаем стоимость и сроки.
+            </p>
             <button
               onClick={open}
-              className="shrink-0 px-8 py-4 rounded-md bg-accent text-foreground-on-dark hover:bg-accent-hover transition-colors font-medium"
+              className="px-8 py-3.5 sm:px-10 sm:py-4 bg-accent text-foreground-on-dark rounded-md hover:bg-accent-hover transition-colors font-medium text-base sm:text-lg max-[440px]:w-full"
             >
               Заказать консультацию
             </button>

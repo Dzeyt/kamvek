@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Страница не найдена | КАМВЕК",
+  title: { absolute: "Страница не найдена | КАМВЕК" },
 };
 
 export default function NotFound() {
@@ -15,7 +15,7 @@ export default function NotFound() {
       </div>
       <div className="relative z-10 container py-24 text-center">
         <div
-          className="text-8xl sm:text-9xl font-semibold text-gold/30 leading-none mb-8"
+          className="text-8xl sm:text-9xl font-semibold text-foreground-on-dark leading-none mb-8"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           404

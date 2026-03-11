@@ -85,8 +85,11 @@ export function AboutPageClient() {
     <main className="min-h-screen">
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-background-dark py-24 md:py-36">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: "url('/images/hero/marble-dark-texture.jpg')" }}
+        />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_15%_0%,rgba(201,169,98,0.22),transparent_55%),radial-gradient(700px_circle_at_85%_80%,rgba(92,74,61,0.18),transparent_55%)]" />
-        <div className="absolute inset-0 opacity-10 bg-marble" />
         <div className="absolute inset-0 bg-gradient-to-b from-background-dark/10 via-background-dark/50 to-background-dark/80" />
 
         <div className="container relative z-10">
@@ -100,12 +103,12 @@ export function AboutPageClient() {
                 })}
           >
             <h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-foreground-on-dark leading-tight tracking-tight max-w-3xl"
+              className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground-on-dark leading-tight tracking-tight max-w-3xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               О компании
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
+            <p className="mt-6 text-base sm:text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
               Камнеобрабатывающее предприятие с многолетним опытом.<br className="hidden sm:block" /> Мы делаем изделия, которые остаются навсегда.
             </p>
           </motion.div>
@@ -118,7 +121,7 @@ export function AboutPageClient() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div className="space-y-6" {...reveal}>
               <h2
-                className="text-2xl md:text-3xl font-semibold text-foreground"
+                className="text-[30px] md:text-3xl font-semibold text-foreground"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Наша история
@@ -196,7 +199,7 @@ export function AboutPageClient() {
 
             <motion.div className="space-y-6 order-1 lg:order-2" {...reveal}>
               <h2
-                className="text-2xl md:text-3xl font-semibold text-foreground"
+                className="text-[30px] md:text-3xl font-semibold text-foreground"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Собственное производство
@@ -222,7 +225,7 @@ export function AboutPageClient() {
         <div className="container">
           <motion.div className="text-center mb-12 md:mb-14" {...reveal}>
             <h2
-              className="text-2xl md:text-3xl font-semibold text-foreground"
+              className="text-[30px] md:text-3xl font-semibold text-foreground"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Наш подход
@@ -258,7 +261,7 @@ export function AboutPageClient() {
         <div className="container">
           <motion.div className="mb-12 md:mb-14" {...reveal}>
             <h2
-              className="text-2xl md:text-3xl font-semibold text-foreground"
+              className="text-[30px] md:text-3xl font-semibold text-foreground"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               С кем мы работаем
@@ -301,18 +304,20 @@ export function AboutPageClient() {
             className="max-w-2xl mx-auto rounded-2xl border border-marble-vein/30 bg-background-dark text-foreground-on-dark px-6 py-10 md:px-12 md:py-14 shadow-[var(--shadow-lg)] text-center"
             {...reveal}
           >
-            <p
-              className="text-xl md:text-2xl font-semibold mb-8 leading-snug"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Доверьте создание вашего пространства профессионалам «Камвек» — мы строим вечность.
-            </p>
-            <button
-              onClick={open}
-              className="px-10 py-4 bg-accent text-foreground-on-dark rounded-md hover:bg-accent-hover transition-colors font-medium text-lg max-[440px]:w-full"
-            >
-              Заказать звонок
-            </button>
+            <div>
+              <p
+                className="text-[28px] sm:text-xl md:text-2xl font-semibold mb-8 leading-snug"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Доверьте создание вашего пространства профессионалам «Камвек» — мы строим вечность.
+              </p>
+              <button
+                onClick={open}
+                className="px-8 py-3.5 sm:px-10 sm:py-4 bg-accent text-foreground-on-dark rounded-md hover:bg-accent-hover transition-colors font-medium text-base sm:text-lg max-[440px]:w-full"
+              >
+                Заказать звонок
+              </button>
+            </div>
           </motion.div>
         </div>
       </section>

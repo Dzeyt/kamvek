@@ -32,6 +32,18 @@ const MaxIcon = (
   </svg>
 );
 
+const VkIcon = (
+  <svg className="w-full h-full" viewBox="0 0 101 100" fill="none" aria-hidden="true">
+    <circle cx="50.5" cy="50" r="50" fill="#1A1614" />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17.3752 30.4169C17.9168 56.4169 30.9167 72.0418 53.7084 72.0418H55.0003V57.1668C63.3753 58.0001 69.7082 64.1252 72.2498 72.0418H84.0835C80.8335 60.2085 72.2914 53.6668 66.9581 51.1668C72.2914 48.0835 79.7915 40.5835 81.5831 30.4169H70.8328C68.4995 38.6669 61.5836 46.1668 55.0003 46.8751V30.4169H44.2499V59.2501C37.5833 57.5835 29.1668 49.5002 28.7918 30.4169H17.3752Z"
+      fill="white"
+    />
+  </svg>
+);
+
 const PhoneIcon = (
   <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.82.37 1.6.72 2.33a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.73-1.28a2 2 0 0 1 2.11-.45c.73.35 1.51.6 2.33.72A2 2 0 0 1 22 16.92z" />
@@ -40,7 +52,8 @@ const PhoneIcon = (
 
 const TELEGRAM_URL = CONTACTS.messengers[0].href;
 const MAX_URL = CONTACTS.messengers[1].href;
-const PHONE_HREF = CONTACTS.phone.href;
+const VK_URL = CONTACTS.messengers[2].href;
+const PHONE_HREF = CONTACTS.phones[0].href;
 
 export function FloatingContacts() {
   const [isOpen, setIsOpen] = useState(false);
@@ -89,6 +102,19 @@ export function FloatingContacts() {
           style={{ boxShadow: "var(--shadow-sm)" }}
         >
           {MaxIcon}
+        </a>
+        <a
+          href={VK_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`w-10 h-10 rounded-full overflow-hidden bg-white border border-marble-vein/70 flex items-center justify-center transition-transform ${
+            isOpen ? "scale-100" : "scale-95"
+          }`}
+          title="ВКонтакте"
+          aria-label="Написать ВКонтакте"
+          style={{ boxShadow: "var(--shadow-sm)" }}
+        >
+          {VkIcon}
         </a>
         <a
           href={PHONE_HREF}

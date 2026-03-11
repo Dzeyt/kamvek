@@ -52,9 +52,22 @@ const MaxIcon = (
   </svg>
 );
 
+const VkIcon = (
+  <svg className="w-full h-full" viewBox="0 0 101 100" fill="none" aria-hidden="true">
+    <circle cx="50.5" cy="50" r="50" fill="currentColor" />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17.3752 30.4169C17.9168 56.4169 30.9167 72.0418 53.7084 72.0418H55.0003V57.1668C63.3753 58.0001 69.7082 64.1252 72.2498 72.0418H84.0835C80.8335 60.2085 72.2914 53.6668 66.9581 51.1668C72.2914 48.0835 79.7915 40.5835 81.5831 30.4169H70.8328C68.4995 38.6669 61.5836 46.1668 55.0003 46.8751V30.4169H44.2499V59.2501C37.5833 57.5835 29.1668 49.5002 28.7918 30.4169H17.3752Z"
+      fill="white"
+    />
+  </svg>
+);
+
 const MESSENGER_ICONS: Record<string, React.ReactNode> = {
   Telegram: TelegramIcon,
   MAX: MaxIcon,
+  VK: VkIcon,
 };
 
 export function ContactsPageClient() {
@@ -74,8 +87,11 @@ export function ContactsPageClient() {
     <main className="min-h-screen">
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-background-dark py-24 md:py-32">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: "url('/images/hero/marble-dark-texture.jpg')" }}
+        />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_15%_0%,rgba(201,169,98,0.22),transparent_55%),radial-gradient(700px_circle_at_85%_80%,rgba(92,74,61,0.18),transparent_55%)]" />
-        <div className="absolute inset-0 opacity-10 bg-marble" />
         <div className="absolute inset-0 bg-gradient-to-b from-background-dark/10 via-background-dark/50 to-background-dark/80" />
 
         <div className="container relative z-10">
@@ -89,12 +105,12 @@ export function ContactsPageClient() {
               })}
           >
             <h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-foreground-on-dark leading-tight tracking-tight"
+              className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground-on-dark leading-tight tracking-tight"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Контакты
             </h1>
-            <p className="mt-5 text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
+            <p className="mt-5 text-base sm:text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
               Свяжитесь с нами любым удобным способом.<br className="hidden sm:block" /> Ответим в течение рабочего дня.
             </p>
           </motion.div>
@@ -117,23 +133,30 @@ export function ContactsPageClient() {
                 <span className="mt-0.5 text-gold group-hover:text-accent transition-colors"><MapPinIcon /></span>
                 <div>
                   <p className="text-xs font-medium uppercase tracking-wider text-foreground-muted mb-1">Адрес</p>
-                  <p className="text-foreground font-medium leading-snug">{CONTACTS.address.line}</p>
+                  <p className="text-foreground font-medium leading-snug">г. Воскресенск, <span className="whitespace-nowrap">ул. Гаражная,</span> <span className="whitespace-nowrap">д. 1-А</span></p>
                   <span className="mt-1.5 inline-block text-sm text-accent border-b border-accent/40 group-hover:border-accent transition-colors">
                     Открыть на карте →
                   </span>
                 </div>
               </a>
 
-              <a
-                href={CONTACTS.phone.href}
-                className="group flex gap-4 rounded-xl border border-marble-vein/60 bg-surface p-5 transition-all hover:border-gold/50 hover:shadow-[var(--shadow-md)]"
-              >
-                <span className="mt-0.5 text-gold group-hover:text-accent transition-colors"><PhoneIcon /></span>
+              <div className="group flex gap-4 rounded-xl border border-marble-vein/60 bg-surface p-5">
+                <span className="mt-0.5 text-gold"><PhoneIcon /></span>
                 <div>
                   <p className="text-xs font-medium uppercase tracking-wider text-foreground-muted mb-1">Телефон</p>
-                  <p className="text-foreground font-medium text-lg">{CONTACTS.phone.display}</p>
+                  <div className="flex flex-col gap-1">
+                    {CONTACTS.phones.map((phone) => (
+                      <a
+                        key={phone.href}
+                        href={phone.href}
+                        className="text-foreground font-medium text-lg hover:text-accent transition-colors"
+                      >
+                        {phone.display}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </a>
+              </div>
 
               <a
                 href={CONTACTS.email.href}
@@ -207,21 +230,23 @@ export function ContactsPageClient() {
             className="max-w-2xl mx-auto rounded-2xl border border-marble-vein/30 bg-background-dark text-foreground-on-dark px-6 py-10 md:px-12 md:py-14 shadow-[var(--shadow-lg)] text-center"
             {...reveal}
           >
-            <h2
-              className="text-2xl md:text-3xl font-semibold mb-4"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Предпочитаете, чтобы мы перезвонили?
-            </h2>
-            <p className="text-foreground-on-dark/65 mb-8 leading-relaxed max-w-md mx-auto">
-              Оставьте заявку — свяжемся в течение рабочего дня. Бесплатная консультация и расчёт стоимости.
-            </p>
-            <button
-              onClick={open}
-              className="px-10 py-4 bg-accent text-foreground-on-dark rounded-md hover:bg-accent-hover transition-colors font-medium text-lg max-[440px]:w-full"
-            >
-              Заказать звонок
-            </button>
+            <div>
+              <h2
+                className="text-[28px] md:text-3xl font-semibold mb-4"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Предпочитаете, чтобы мы перезвонили?
+              </h2>
+              <p className="text-foreground-on-dark/65 mb-8 leading-relaxed max-w-md mx-auto">
+                Оставьте заявку — свяжемся в течение рабочего дня. Бесплатная консультация и расчёт стоимости.
+              </p>
+              <button
+                onClick={open}
+                className="px-8 py-3.5 sm:px-10 sm:py-4 bg-accent text-foreground-on-dark rounded-md hover:bg-accent-hover transition-colors font-medium text-base sm:text-lg max-[440px]:w-full"
+              >
+                Заказать звонок
+              </button>
+            </div>
           </motion.div>
         </div>
       </section>

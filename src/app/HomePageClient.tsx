@@ -7,6 +7,7 @@ import { useCallRequestModal } from "@/components/CallRequestModalContext";
 import { PORTFOLIO_ITEMS } from "@/data/portfolio";
 import { HOME_PORTFOLIO_PREVIEW_IDS, HOME_PORTFOLIO_PREVIEW_IDS_3COL } from "@/data/portfolio-order";
 import { SERVICES } from "@/data/services";
+import { STONES, STONE_GROUPS } from "@/data/stones";
 
 // Выбираем 12 работ для превью — для сеток 2 и 4 в ряд (пары по категориям)
 const PORTFOLIO_PREVIEW = (() => {
@@ -32,6 +33,23 @@ const PORTFOLIO_PREVIEW_3COL = (() => {
 
 // Приоритетные услуги для главной
 const PRIORITY_SERVICES = SERVICES.filter((s) => s.priority).slice(0, 3);
+
+// Превью каталога: все 5 групп, по 1 «герою» с лучшей фотографией
+const CATALOG_HERO_PICKS: Record<string, string> = {
+  "Мрамор": "Каррара Бьянко",
+  "Гранит": "Волга Блю",
+  "Кварцит": "Тадж Махал",
+  "Оникс": "Верде Персиано",
+  "Травертин": "Навона",
+};
+const CATALOG_PREVIEW = STONE_GROUPS.map((group) => {
+  const stonesWithImg = STONES.filter((s) => s.group === group && s.imageSrc);
+  const hero =
+    stonesWithImg.find((s) => s.name === CATALOG_HERO_PICKS[group]) ??
+    stonesWithImg[0];
+  const count = STONES.filter((s) => s.group === group).length;
+  return { group, hero, count };
+});
 
 // Преимущества (порядок: доверие → возможности → удобство → скорость)
 const ADVANTAGES = [
@@ -147,7 +165,7 @@ const staggerContainer = {
 export function HomePageClient() {
   const { open } = useCallRequestModal();
   const shouldReduceMotion = useReducedMotion();
-  const heroVariant: "v1" = "v1";
+  const heroVariant = "v1" as const;
 
 
   // Если пользователь предпочитает уменьшенную анимацию
@@ -167,10 +185,13 @@ export function HomePageClient() {
     <main>
       {/* ========== HERO SECTION ========== */}
       <section className="relative h-[calc(100vh-var(--header-height))] flex items-center justify-center overflow-hidden">
-        {/* Фон без фотографии — премиум градиент + мраморная текстура */}
+        {/* Фон — мраморная фотография + премиум градиент */}
         <div className="absolute inset-0 bg-background-dark">
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-25"
+            style={{ backgroundImage: "url('/images/hero/marble-dark-texture.jpg')" }}
+          />
           <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_15%_10%,rgba(201,169,98,0.28),transparent_55%),radial-gradient(900px_circle_at_85%_20%,rgba(92,74,61,0.24),transparent_55%)]" />
-          <div className="absolute inset-0 opacity-15 bg-marble" />
           <div className="absolute inset-0 bg-gradient-to-b from-background-dark/20 via-background-dark/45 to-background-dark/75" />
         </div>
 
@@ -181,13 +202,13 @@ export function HomePageClient() {
             transition={{ duration: 0.6 }}
           >
             <h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold mb-6 leading-tight"
+              className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-tight"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Изделия из натурального камня <span className="whitespace-nowrap">под ключ</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-foreground-on-dark/80 max-w-2xl mx-auto mb-10">
+            <p className="text-base sm:text-lg md:text-xl text-foreground-on-dark/80 max-w-2xl mx-auto mb-10">
               Индивидуальные решения — от проекта до монтажа.
             </p>
 
@@ -195,7 +216,7 @@ export function HomePageClient() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={open}
-                className={`px-8 py-4 rounded-md transition-colors text-lg font-medium max-[440px]:w-full ${heroVariant === "v1"
+                className={`px-6 py-3 sm:px-8 sm:py-4 rounded-md transition-colors text-base sm:text-lg font-medium max-[440px]:w-full ${heroVariant === "v1"
                     ? "bg-accent text-foreground-on-dark hover:bg-accent-hover"
                     : heroVariant === "v2"
                       ? "bg-foreground text-background hover:bg-foreground/90"
@@ -206,7 +227,7 @@ export function HomePageClient() {
               </button>
               <button
                 onClick={scrollToPortfolio}
-                className={`px-8 py-4 rounded-md transition-colors text-lg font-medium ${heroVariant === "v1"
+                className={`px-6 py-3 sm:px-8 sm:py-4 rounded-md transition-colors text-base sm:text-lg font-medium ${heroVariant === "v1"
                     ? "border border-accent/60 text-foreground-on-dark hover:bg-white/15 hover:text-foreground-on-dark"
                     : heroVariant === "v2"
                       ? "border border-foreground/40 text-foreground-on-dark hover:bg-foreground hover:text-background"
@@ -258,12 +279,12 @@ export function HomePageClient() {
         <div className="container">
           <motion.div {...animationProps} variants={fadeInUp} className="text-center mb-12">
             <h2
-              className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-4"
+              className="text-[30px] sm:text-3xl md:text-4xl font-semibold text-foreground mb-4"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Наши работы
             </h2>
-            <p className="text-foreground-muted text-lg max-w-2xl mx-auto">
+            <p className="text-foreground-muted text-base sm:text-lg max-w-2xl mx-auto">
               Более 500 реализованных проектов для частных домов, квартир и общественных пространств
             </p>
           </motion.div>
@@ -282,7 +303,7 @@ export function HomePageClient() {
                 >
                   <Image
                     src={item.src}
-                    alt={`Работа из портфолио ${index + 1}`}
+                    alt={`${item.categories[0]} из натурального камня — проект КАМВЕК`}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 640px) 50vw, 25vw"
@@ -308,7 +329,7 @@ export function HomePageClient() {
                 >
                   <Image
                     src={item.src}
-                    alt={`Работа из портфолио ${index + 1}`}
+                    alt={`${item.categories[0]} из натурального камня — проект КАМВЕК`}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="33vw"
@@ -324,7 +345,7 @@ export function HomePageClient() {
           <motion.div {...animationProps} variants={fadeInUp} className="text-center mt-10">
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-2 px-8 py-4 border border-accent text-accent rounded-md hover:bg-accent hover:text-foreground-on-dark transition-colors text-lg font-medium"
+              className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 border border-accent text-accent rounded-md hover:bg-accent hover:text-foreground-on-dark transition-colors text-base sm:text-lg font-medium"
             >
               Все работы
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -340,12 +361,12 @@ export function HomePageClient() {
         <div className="container">
         <div className="text-center mb-12">
         <h2
-              className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-4"
+              className="text-[30px] sm:text-3xl md:text-4xl font-semibold text-foreground mb-4"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Направления работ
             </h2>
-            <p className="text-foreground-muted text-lg max-w-2xl mx-auto">
+            <p className="text-foreground-muted text-base sm:text-lg max-w-2xl mx-auto">
               Изготавливаем изделия любой сложности из мрамора, гранита, кварцита, оникса и травертина
             </p>
           </div>
@@ -388,7 +409,7 @@ export function HomePageClient() {
           <motion.div {...animationProps} variants={fadeInUp} className="text-center mt-10">
             <Link
               href="/uslugi"
-              className="inline-flex items-center gap-2 px-8 py-4 border border-accent text-accent rounded-md hover:bg-accent hover:text-foreground-on-dark transition-colors text-lg font-medium"
+              className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 border border-accent text-accent rounded-md hover:bg-accent hover:text-foreground-on-dark transition-colors text-base sm:text-lg font-medium"
             >
               Все услуги
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -399,12 +420,99 @@ export function HomePageClient() {
         </div>
       </section>
 
-      {/* ========== ADVANTAGES ========== */}
+      {/* ========== STONE CATALOG PREVIEW (Bento) ========== */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container">
           <motion.div {...animationProps} variants={fadeInUp} className="text-center mb-12">
             <h2
-              className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-4"
+              className="text-[30px] sm:text-3xl md:text-4xl font-semibold text-foreground mb-4"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Каталог камня
+            </h2>
+            <p className="text-foreground-muted text-base sm:text-lg max-w-2xl mx-auto">
+              Мрамор, гранит, кварцит, оникс и травертин — натуральный камень для любого проекта
+            </p>
+          </motion.div>
+
+          {/* Бенто-сетка: Мрамор большой слева, 4 остальных справа */}
+          <motion.div
+            {...animationProps}
+            variants={staggerContainer}
+            className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4"
+          >
+            {CATALOG_PREVIEW.map(({ group, hero, count }, index) => (
+              <motion.div
+                key={group}
+                variants={fadeInUp}
+                className={index === 0 ? "col-span-2 lg:col-span-2 lg:row-span-2" : ""}
+              >
+                <Link
+                  href={`/katalog-kamnya?group=${encodeURIComponent(group)}`}
+                  className={`group relative block rounded-xl overflow-hidden ${index === 0 ? "aspect-[16/9] sm:aspect-[21/9] lg:aspect-auto lg:h-full" : "aspect-[4/3]"}`}
+                >
+                  {hero?.imageSrc ? (
+                    <Image
+                      src={hero.imageSrc}
+                      alt={`${hero.name} — образец натурального ${group.toLowerCase()}`}
+                      fill
+                      quality={index === 0 ? 90 : 75}
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes={
+                        index === 0
+                          ? "(max-width: 1024px) 100vw, 50vw"
+                          : "(max-width: 640px) 50vw, 25vw"
+                      }
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-marble-light to-marble-vein" />
+                  )}
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-background-dark/20 to-transparent group-hover:from-background-dark/65 transition-colors duration-300" />
+
+                  <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-5 lg:p-6">
+                    <h3
+                      className={`font-semibold text-foreground-on-dark mb-0.5 ${index === 0 ? "text-2xl sm:text-3xl lg:text-4xl" : "text-lg sm:text-xl"}`}
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      {group}
+                    </h3>
+                    <p className={`text-foreground-on-dark/60 ${index === 0 ? "text-sm sm:text-base" : "text-xs sm:text-sm"}`}>
+                      {count} {count > 4 ? "видов" : "вида"} камня
+                    </p>
+                  </div>
+
+                  <div className="absolute top-3 right-3 md:top-4 md:right-4 w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <svg className="w-4 h-4 md:w-5 md:h-5 text-foreground-on-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div {...animationProps} variants={fadeInUp} className="text-center mt-10">
+            <Link
+              href="/katalog-kamnya"
+              className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 border border-accent text-accent rounded-md hover:bg-accent hover:text-foreground-on-dark transition-colors text-base sm:text-lg font-medium"
+            >
+              Весь каталог камня
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ========== ADVANTAGES ========== */}
+      <section className="py-16 md:py-24 bg-marble-light/30">
+        <div className="container">
+          <motion.div {...animationProps} variants={fadeInUp} className="text-center mb-12">
+            <h2
+              className="text-[30px] sm:text-3xl md:text-4xl font-semibold text-foreground mb-4"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Почему выбирают нас
@@ -439,12 +547,12 @@ export function HomePageClient() {
         <div className="container">
           <motion.div {...animationProps} variants={fadeInUp} className="text-center mb-12">
             <h2
-              className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-4"
+              className="text-[30px] sm:text-3xl md:text-4xl font-semibold text-foreground mb-4"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Как мы работаем
             </h2>
-            <p className="text-foreground-muted text-lg max-w-2xl mx-auto">
+            <p className="text-foreground-muted text-base sm:text-lg max-w-2xl mx-auto">
               Прозрачный процесс от первого звонка до готового изделия
             </p>
           </motion.div>
@@ -491,17 +599,17 @@ export function HomePageClient() {
             className="max-w-3xl mx-auto text-center rounded-2xl border border-marble-vein/30 bg-background-dark text-foreground-on-dark px-6 py-10 md:px-10 md:py-12 shadow-[var(--shadow-lg)]"
           >
             <h2
-              className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-6"
+              className="text-[28px] sm:text-3xl md:text-4xl font-semibold mb-6"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Готовы обсудить ваш проект?
             </h2>
-            <p className="text-foreground-on-dark/75 text-lg mb-10 max-w-xl mx-auto">
+            <p className="text-foreground-on-dark/75 text-base sm:text-lg mb-10 max-w-xl mx-auto">
               Оставьте заявку, и мы перезвоним в течение рабочего дня. Бесплатная консультация и расчёт стоимости.
             </p>
             <button
               onClick={open}
-              className="px-10 py-5 bg-accent text-foreground-on-dark rounded-md hover:bg-accent-hover transition-colors text-lg font-semibold max-[440px]:w-full"
+              className="px-8 py-4 sm:px-10 sm:py-5 bg-accent text-foreground-on-dark rounded-md hover:bg-accent-hover transition-colors text-base sm:text-lg font-semibold max-[440px]:w-full"
             >
               Заказать звонок
             </button>

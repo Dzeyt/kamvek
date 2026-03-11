@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import type { TargetAndTransition, Transition } from "framer-motion";
 import clsx from "clsx";
@@ -12,7 +13,14 @@ import { useCallRequestModal } from "@/components/CallRequestModalContext";
 export function KatalogKamnyaClient() {
   const { open } = useCallRequestModal();
   const shouldReduceMotion = useReducedMotion();
-  const [activeGroup, setActiveGroup] = useState<StoneGroup>("Мрамор");
+  const searchParams = useSearchParams();
+
+  const initialGroup = (): StoneGroup => {
+    const param = searchParams.get("group");
+    return (STONE_GROUPS.includes(param as StoneGroup) ? param : "Мрамор") as StoneGroup;
+  };
+
+  const [activeGroup, setActiveGroup] = useState<StoneGroup>(initialGroup);
 
   const filteredStones = useMemo(() => {
     return STONES.filter((stone) => stone.group === activeGroup);
@@ -34,9 +42,17 @@ export function KatalogKamnyaClient() {
     <main className="min-h-screen">
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-background-dark py-24 md:py-36">
+        <Image
+          src="/images/hero/marble-dark-texture.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          priority
+          aria-hidden="true"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-background-dark/60" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_15%_0%,rgba(201,169,98,0.22),transparent_55%),radial-gradient(700px_circle_at_85%_80%,rgba(92,74,61,0.18),transparent_55%)]" />
-        <div className="absolute inset-0 opacity-10 bg-marble" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background-dark/10 via-background-dark/50 to-background-dark/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-dark/30 to-background-dark/70" />
 
         <div className="container relative z-10">
           <motion.div
@@ -49,12 +65,12 @@ export function KatalogKamnyaClient() {
                 })}
           >
             <h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-foreground-on-dark leading-tight tracking-tight max-w-3xl"
+              className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground-on-dark leading-tight tracking-tight max-w-3xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Каталог камня
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
+            <p className="mt-6 text-base sm:text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
               Мрамор, гранит, кварцит, оникс и травертин — натуральный камень для любого проекта.
             </p>
           </motion.div>
@@ -112,14 +128,14 @@ export function KatalogKamnyaClient() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-16 md:py-20 bg-marble-light/30">
+      <section className="py-16 md:py-20 bg-background">
         <div className="container">
           <motion.div
             className="max-w-2xl mx-auto rounded-2xl border border-marble-vein/30 bg-background-dark text-foreground-on-dark px-6 py-10 md:px-12 md:py-14 shadow-[var(--shadow-lg)] text-center"
             {...reveal}
           >
             <h2
-              className="text-2xl md:text-3xl font-semibold mb-4"
+              className="text-[28px] md:text-3xl font-semibold mb-4"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Понравился материал?
@@ -129,10 +145,35 @@ export function KatalogKamnyaClient() {
             </p>
             <button
               onClick={open}
-              className="px-10 py-4 bg-accent text-foreground-on-dark rounded-md hover:bg-accent-hover transition-colors font-medium text-lg max-[440px]:w-full"
+              className="px-8 py-3.5 sm:px-10 sm:py-4 bg-accent text-foreground-on-dark rounded-md hover:bg-accent-hover transition-colors font-medium text-base sm:text-lg max-[440px]:w-full"
             >
               Заказать звонок
             </button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── СКЛАД ПОСТАВЩИКА ── */}
+      <section className="pb-20 md:pb-28 bg-background">
+        <div className="container">
+          <motion.div
+            className="max-w-2xl mx-auto rounded-xl border border-marble-vein/40 bg-marble-light/40 text-foreground px-6 py-8 md:px-10 md:py-10 text-center"
+            {...reveal}
+          >
+            <p className="text-foreground-muted leading-relaxed mb-6">
+              Не нашли нужный камень? Мы закупим у поставщиков, доставим и изготовим изделие по вашему заказу.
+            </p>
+            <a
+              href="https://disk.yandex.ru/d/HlRv6jkYaFVvIg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-md border border-accent/60 text-foreground hover:bg-accent hover:text-foreground-on-dark transition-colors font-medium max-[440px]:w-full"
+            >
+              Смотреть склад
+              <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
           </motion.div>
         </div>
       </section>
@@ -159,7 +200,7 @@ function StoneCard({ stone, cardHover, cardTransition }: StoneCardProps) {
         {stone.imageSrc ? (
           <Image
             src={stone.imageSrc}
-            alt={stone.name}
+            alt={`${stone.name} — образец натурального ${stone.group.toLowerCase()}`}
             fill
             className="object-cover"
             sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"

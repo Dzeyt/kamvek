@@ -5,6 +5,7 @@ import { CallRequestModalProvider } from "@/components/CallRequestModalContext";
 import { Header } from "@/components/Header";
 import { FloatingContacts } from "@/components/FloatingContacts";
 import { Footer } from "@/components/Footer";
+import { StructuredData } from "@/components/StructuredData";
 
 /*
   ========================================
@@ -61,11 +62,18 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "КАМВЕК" }],
   creator: "КАМВЕК",
-  // Open Graph для соцсетей (добавим картинку позже)
   openGraph: {
     type: "website",
     locale: "ru_RU",
     siteName: "КАМВЕК",
+    images: [
+      {
+        url: "https://kamvek.ru/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "КАМВЕК — изделия из натурального камня под ключ",
+      },
+    ],
   },
   // Разрешаем индексацию
   robots: {
@@ -83,12 +91,12 @@ export default function RootLayout({
     // lang="ru" — важно для SEO и accessibility
     <html lang="ru" className={`${cormorant.variable} ${montserrat.variable}`}>
       <body className="antialiased">
+        <StructuredData />
         <CallRequestModalProvider>
           <Header />
           {children}
           <Footer />
           <FloatingContacts />
-          {/* Footer добавим на следующем шаге */}
         </CallRequestModalProvider>
       </body>
     </html>
