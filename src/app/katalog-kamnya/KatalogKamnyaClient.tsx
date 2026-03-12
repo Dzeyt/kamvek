@@ -164,7 +164,7 @@ export function KatalogKamnyaClient() {
               Не нашли нужный камень? Мы закупим у поставщиков, доставим и изготовим изделие по вашему заказу.
             </p>
             <a
-              href="https://disk.yandex.ru/d/HlRv6jkYaFVvIg"
+              href="https://disk.360.yandex.ru/d/Ry8EMnRt0S3WvA"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-md border border-accent/60 text-foreground hover:bg-accent hover:text-foreground-on-dark transition-colors font-medium max-[440px]:w-full"
