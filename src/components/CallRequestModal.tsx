@@ -89,9 +89,7 @@ export function CallRequestModal({ open, onClose }: Props) {
     e.preventDefault();
     if (!canSubmit) return;
 
-    // Honeypot check — если заполнено, это бот
     if (honeypot) {
-      console.warn("[CallRequestModal] Honeypot triggered, blocking submission");
       setStatus("error");
       return;
     }

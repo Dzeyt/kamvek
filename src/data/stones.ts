@@ -90,14 +90,13 @@ const STONE_SEEDS: StoneSeed[] = [
 
   // ===== ГРАНИТ =====
   { name: "Мадура Голд", group: "Гранит", imageSrc: "/images/stones/granite/madura-gold.jpg" },
-  { name: "Колониал Голд", group: "Гранит" },
-  { name: "Голден Найт", group: "Гранит" },
+  { name: "Колониал Голд", group: "Гранит", imageSrc: "/images/stones/granite/kolonial-gold.jpg" },
+  { name: "Голден Найт", group: "Гранит", imageSrc: "/images/stones/granite/golden-night.jpg" },
   { name: "Колониал Вайт", group: "Гранит", imageSrc: "/images/stones/granite/kolonial-vayt.jpg" },
   { name: "Висконт Вайт", group: "Гранит", imageSrc: "/images/stones/granite/viskont-vayt.jpg" },
   { name: "Айвори Браун", group: "Гранит", imageSrc: "/images/stones/granite/ayvori-braun.jpg" },
   { name: "Айсберг Вайт", group: "Гранит", imageSrc: "/images/stones/granite/aysberg-vayt.jpg" },
   { name: "Айвори Фэнтези", group: "Гранит", imageSrc: "/images/stones/granite/ayvori-fentezi.jpg" },
-  { name: "Блю Джинс", group: "Гранит" },
   { name: "Абсолют Блэк Экстра", group: "Гранит", imageSrc: "/images/stones/granite/absolyut-blek-ekstra.jpg" },
   { name: "Волга Блю", group: "Гранит", imageSrc: "/images/stones/granite/volga-blyu.jpg" },
   { name: "Титаниум Экстра", group: "Гранит", imageSrc: "/images/stones/granite/titanium-ekstra.jpg" },
@@ -112,12 +111,12 @@ const STONE_SEEDS: StoneSeed[] = [
   { name: "Браун Макаубас", group: "Кварцит", imageSrc: "/images/stones/quartzite/braun-makaubas.jpg" },
   { name: "Мон Блан", group: "Кварцит", imageSrc: "/images/stones/quartzite/mon-blan.jpg" },
   { name: "Фьюжн Элегант", group: "Кварцит", imageSrc: "/images/stones/quartzite/fyuzhn-elegant.jpg" },
-  { name: "Дольче Вита", group: "Кварцит" },
+  { name: "Дольче Вита", group: "Кварцит", imageSrc: "/images/stones/quartzite/dolche-vita.jpg" },
   { name: "Бьянко Кристалло", group: "Кварцит", imageSrc: "/images/stones/quartzite/byanko-kristallo.jpg" },
   { name: "Турмалин Айс", group: "Кварцит", imageSrc: "/images/stones/quartzite/turmalin-ays.jpg" },
 
   // ===== ОНИКС =====
-  { name: "Оранж", group: "Оникс" },
+  { name: "Оранж", group: "Оникс", imageSrc: "/images/stones/onyx/oniks-orange.jpg" },
   { name: "Верде Нуволато", group: "Оникс", imageSrc: "/images/stones/onyx/oniks-verde-nuvolato.jpg" },
   { name: "Грин Экстра", group: "Оникс", imageSrc: "/images/stones/onyx/oniks-grin-ekstra.jpg" },
   { name: "Пинк Экстра", group: "Оникс", imageSrc: "/images/stones/onyx/oniks-pink-ekstra.jpg" },
@@ -140,10 +139,10 @@ const STONE_SEEDS: StoneSeed[] = [
   { name: "Алабастрино", group: "Травертин", imageSrc: "/images/stones/travertine/travertin-alabastrino.jpg" },
   { name: "Валнут", group: "Травертин", imageSrc: "/images/stones/travertine/travertin-valnut.jpg" },
   { name: "Голд", group: "Травертин", imageSrc: "/images/stones/travertine/travertin-gold.jpg" },
-  { name: "Романо", group: "Травертин" },
+  { name: "Романо Сильвер", group: "Травертин", imageSrc: "/images/stones/travertine/travertin-romano-silver.jpg" },
   { name: "Грей", group: "Травертин", imageSrc: "/images/stones/travertine/travertin-grey.jpg" },
   { name: "Персиан Ред", group: "Травертин", imageSrc: "/images/stones/travertine/travertin-persian-red.jpg" },
-  { name: "Айвори", group: "Травертин" },
+  { name: "Айвори", group: "Травертин", imageSrc: "/images/stones/travertine/travertin-ayvori.jpg" },
 ];
 
 export const STONES: StoneItem[] = STONE_SEEDS.map((seed) => ({

@@ -23,10 +23,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ru_RU",
     siteName: "КАМВЕК",
-    images: [{ url: "https://kamvek.ru/images/og-default.jpg", width: 1200, height: 630, alt: "КАМВЕК — изделия из натурального камня под ключ" }],
+    images: [{ url: "https://kamen-veka.ru/images/og-default.jpg", width: 1200, height: 630, alt: "КАМВЕК — изделия из натурального камня под ключ" }],
   },
   alternates: {
-    canonical: "https://kamvek.ru/katalog-kamnya",
+    canonical: "https://kamen-veka.ru/katalog-kamnya",
   },
 };
 

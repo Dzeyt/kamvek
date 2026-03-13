@@ -1,4 +1,3 @@
-import Script from "next/script";
 import { CONTACTS } from "@/data/contacts";
 
 /**
@@ -12,9 +11,10 @@ export function StructuredData() {
     name: "КАМВЕК",
     description:
       "Производство изделий из натурального камня. Столешницы, подоконники, лестницы, камины из мрамора, гранита, кварцита, оникса и травертина. Собственное производство в Воскресенске.",
-    url: "https://kamvek.ru",
+    url: "https://kamen-veka.ru",
     telephone: CONTACTS.phones[0].display,
     email: CONTACTS.email.display,
+    image: "https://kamen-veka.ru/images/og-default.jpg",
     address: {
       "@type": "PostalAddress",
       streetAddress: "ул. Гаражная, д. 1-А",
@@ -58,8 +58,7 @@ export function StructuredData() {
   };
 
   return (
-    <Script
-      id="structured-data"
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
     />

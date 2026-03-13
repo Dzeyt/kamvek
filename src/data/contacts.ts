@@ -8,6 +8,7 @@ export const CONTACTS = {
     yandexMapCoords: { lat: 55.248758, lon: 38.750667 },
   },
   phones: [
+    { display: "+7 (916) 380-50-90", href: "tel:+79163805090" },
     { display: "+7 (916) 358-85-79", href: "tel:+79163588579" },
     { display: "+7 (926) 684-48-20", href: "tel:+79266844820" },
   ],

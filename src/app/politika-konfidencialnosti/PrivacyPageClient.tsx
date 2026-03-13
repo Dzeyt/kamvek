@@ -39,7 +39,7 @@ export function PrivacyPageClient() {
               <p>Юридический адрес: 140200, Московская область, г. Воскресенск, ул. Гаражная, д. 1-А, этаж 1</p>
               <p>Почтовый адрес: 140207, Московская область, г. Воскресенск, ПГТ Белоозерский, ул. Коммунальная, д. 21-А</p>
               <p>E-mail: <a href="mailto:kamenveka@yandex.ru" className="text-accent hover:underline">kamenveka@yandex.ru</a></p>
-              <p>Телефон: <a href="tel:+79163588579" className="text-accent hover:underline">+7 (916) 358-85-79</a></p>
+              <p>Телефон: <a href="tel:+79163805090" className="text-accent hover:underline">+7 (916) 380-50-90</a></p>
             </div>
 
             <h2
