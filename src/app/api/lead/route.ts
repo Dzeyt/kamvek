@@ -26,7 +26,19 @@ const transporter = nodemailer.createTransport({
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  connectionTimeout: 8000,
+  greetingTimeout: 8000,
+  socketTimeout: 8000,
 });
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms),
+    ),
+  ]);
+}
 
 // ===== RATE LIMITING =====
 const requestLog = new Map<string, number[]>();
@@ -187,7 +199,7 @@ export async function POST(req: NextRequest) {
 
   const emailPromise =
     smtpUser && emailTo
-      ? transporter.sendMail({
+      ? withTimeout(transporter.sendMail({
           from: { name: "Камвек", address: smtpUser },
           to: emailTo,
           replyTo: smtpUser,
@@ -198,7 +210,7 @@ export async function POST(req: NextRequest) {
             "X-Mailer": "Kamvek Website",
             "List-Unsubscribe": `<mailto:${smtpUser}?subject=unsubscribe>`,
           },
-        })
+        }), 10000)
       : Promise.resolve(null);
 
   // Отправляем параллельно — сбой одного канала не блокирует другой
