@@ -213,38 +213,31 @@ export async function POST(req: NextRequest) {
         }), 10000)
       : Promise.resolve(null);
 
-  // Отправляем параллельно — сбой одного канала не блокирует другой
-  const [tgResult, emailResult] = await Promise.allSettled([
-    telegramPromise,
-    emailPromise,
-  ]);
-
-  if (tgResult.status === "rejected") {
-    console.error("[lead] Telegram send failed:", tgResult.reason);
-  } else {
-    const tgRes = tgResult.value;
-    if (!tgRes.ok) {
-      console.error("[lead] Telegram API error:", await tgRes.text());
+  const tgChecked = telegramPromise.then(async (res) => {
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Telegram API error: ${text}`);
     }
-  }
+    return "telegram" as const;
+  });
 
-  if (emailResult.status === "rejected") {
-    console.error("[lead] Email send failed:", emailResult.reason);
-  } else if (emailResult.value === null) {
-    console.warn("[lead] Email skipped: SMTP_USER or LEAD_EMAIL_TO not set");
-  }
+  const emailChecked = emailPromise.then((result) => {
+    if (result === null) throw new Error("Email not configured");
+    return "email" as const;
+  });
 
-  const tgOk =
-    tgResult.status === "fulfilled" && tgResult.value.ok;
-  const emailOk =
-    emailResult.status === "fulfilled" && emailResult.value !== null;
-
-  if (!tgOk && !emailOk) {
+  try {
+    await Promise.any([tgChecked, emailChecked]);
+  } catch {
+    console.error("[lead] Both Telegram and email failed");
     return NextResponse.json(
       { error: "Failed to deliver lead" },
       { status: 502 },
     );
   }
+
+  tgChecked.catch((err) => console.error("[lead] Telegram failed:", err.message));
+  emailChecked.catch((err) => console.error("[lead] Email failed:", err.message));
 
   return NextResponse.json({ ok: true });
 }
