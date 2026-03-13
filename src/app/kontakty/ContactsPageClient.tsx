@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { useCallRequestModal } from "@/components/CallRequestModalContext";
 import { CONTACTS } from "@/data/contacts";
@@ -87,9 +88,14 @@ export function ContactsPageClient() {
     <main className="min-h-screen">
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-background-dark py-24 md:py-32">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: "url('/images/hero/marble-dark-texture.jpg')" }}
+        <Image
+          src="/images/hero/marble-dark-texture.jpg"
+          alt=""
+          fill
+          priority
+          fetchPriority="high"
+          className="object-cover object-center opacity-20"
+          aria-hidden="true"
         />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_15%_0%,rgba(201,169,98,0.22),transparent_55%),radial-gradient(700px_circle_at_85%_80%,rgba(92,74,61,0.18),transparent_55%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-background-dark/10 via-background-dark/50 to-background-dark/80" />

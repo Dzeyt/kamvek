@@ -187,9 +187,14 @@ export function HomePageClient() {
       <section className="relative h-[calc(100vh-var(--header-height))] flex items-center justify-center overflow-hidden">
         {/* Фон — мраморная фотография + премиум градиент */}
         <div className="absolute inset-0 bg-background-dark">
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-25"
-            style={{ backgroundImage: "url('/images/hero/marble-dark-texture.jpg')" }}
+          <Image
+            src="/images/hero/marble-dark-texture.jpg"
+            alt=""
+            fill
+            priority
+            fetchPriority="high"
+            className="object-cover object-center opacity-25"
+            aria-hidden="true"
           />
           <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_15%_10%,rgba(201,169,98,0.28),transparent_55%),radial-gradient(900px_circle_at_85%_20%,rgba(92,74,61,0.24),transparent_55%)]" />
           <div className="absolute inset-0 bg-gradient-to-b from-background-dark/20 via-background-dark/45 to-background-dark/75" />
