@@ -40,6 +40,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "КАМВЕК" }],
   creator: "КАМВЕК",
+  verification: {
+    yandex: "327d20190df530ec",
+  },
   openGraph: {
     type: "website",
     locale: "ru_RU",
