@@ -107,6 +107,9 @@ export function CallRequestModal({ open, onClose }: Props) {
       clearTimeout(timeout);
       if (!res.ok) throw new Error("Server error");
       setStatus("success");
+      if (typeof window !== "undefined" && typeof (window as any).ym === "function") {
+        (window as any).ym(110069807, "reachGoal", "form_submit");
+      }
     } catch {
       setStatus("error");
     }
