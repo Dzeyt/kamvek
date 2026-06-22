@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { FloatingContacts } from "@/components/FloatingContacts";
 import { Footer } from "@/components/Footer";
 import { StructuredData } from "@/components/StructuredData";
+import { YandexMetrika } from "@/components/YandexMetrika";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin", "cyrillic"],
@@ -70,6 +71,7 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${cormorant.variable} ${montserrat.variable}`}>
       <body className="antialiased">
+        <YandexMetrika />
         <StructuredData />
         <CallRequestModalProvider>
           <Header />
