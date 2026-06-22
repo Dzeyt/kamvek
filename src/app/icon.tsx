@@ -4,16 +4,26 @@ export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
 export default async function Icon() {
-  // Получаем CSS с Google Fonts, извлекаем URL нужного шрифта (кириллица, 600)
-  const css = await fetch(
-    "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&subset=cyrillic&display=swap",
-    { headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" } }
-  ).then((res) => res.text());
+  let fontData: ArrayBuffer | null = null;
 
-  const fontUrl = css.match(/url\(([^)]+\.woff2)\)/)?.[1];
-  const fontData = fontUrl
-    ? await fetch(fontUrl).then((res) => res.arrayBuffer())
-    : null;
+  try {
+    const css = await fetch(
+      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&subset=cyrillic&display=swap",
+      {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+        },
+      }
+    ).then((res) => res.text());
+
+    const fontUrl = css.match(/url\(([^)]+\.woff2)\)/)?.[1];
+    if (fontUrl) {
+      fontData = await fetch(fontUrl).then((res) => res.arrayBuffer());
+    }
+  } catch {
+    // Fallback to system font when network is unavailable (e.g. during Docker build)
+  }
 
   return new ImageResponse(
     (
