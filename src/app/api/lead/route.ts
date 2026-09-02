@@ -123,9 +123,13 @@ export async function POST(req: NextRequest) {
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
+  const smtpUser = process.env.SMTP_USER;
+  const emailTo = process.env.LEAD_EMAIL_TO;
+  const hasTelegram = Boolean(token && chatId);
+  const hasEmail = Boolean(smtpUser && emailTo);
 
-  if (!token || !chatId) {
-    console.error("[lead] TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is not set");
+  if (!hasTelegram && !hasEmail) {
+    console.error("[lead] No delivery channel configured (Telegram or SMTP)");
     return NextResponse.json(
       { error: "Server misconfiguration" },
       { status: 500 },
@@ -173,18 +177,20 @@ export async function POST(req: NextRequest) {
   }
   tgLines.push(`📄 Страница: ${esc(pageName)}`);
 
-  const telegramPromise = fetchWithRetry(
-    `https://api.telegram.org/bot${token}/sendMessage`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: tgLines.join("\n"),
-        parse_mode: "HTML",
-      }),
-    },
-  );
+  const telegramPromise = hasTelegram
+    ? fetchWithRetry(
+        `https://api.telegram.org/bot${token}/sendMessage`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: tgLines.join("\n"),
+            parse_mode: "HTML",
+          }),
+        },
+      )
+    : null;
 
   // === Email ===
   const commentRow = comment?.trim()
@@ -229,9 +235,6 @@ export async function POST(req: NextRequest) {
   if (comment?.trim()) plainLines.push(`Комментарий: ${comment.trim()}`);
   plainLines.push(`Страница: ${pageName}`);
 
-  const smtpUser = process.env.SMTP_USER;
-  const emailTo = process.env.LEAD_EMAIL_TO;
-
   const emailPromise =
     smtpUser && emailTo
       ? withTimeout(transporter.sendMail({
@@ -246,33 +249,43 @@ export async function POST(req: NextRequest) {
             "List-Unsubscribe": `<mailto:${smtpUser}?subject=unsubscribe>`,
           },
         }), 10000)
-      : Promise.resolve(null);
+      : null;
 
-  const tgChecked = telegramPromise.then(async (res) => {
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`Telegram API error: ${text}`);
-    }
-    return "telegram" as const;
-  });
+  const deliveryPromises: Promise<"telegram" | "email">[] = [];
 
-  const emailChecked = emailPromise.then((result) => {
-    if (result === null) throw new Error("Email not configured");
-    return "email" as const;
-  });
+  if (telegramPromise) {
+    deliveryPromises.push(
+      telegramPromise.then(async (res): Promise<"telegram"> => {
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`Telegram API error: ${text}`);
+        }
+        return "telegram";
+      }),
+    );
+  }
+
+  if (emailPromise) {
+    deliveryPromises.push(
+      emailPromise.then((): "email" => "email"),
+    );
+  }
 
   try {
-    await Promise.any([tgChecked, emailChecked]);
+    await Promise.any(deliveryPromises);
   } catch {
-    console.error("[lead] Both Telegram and email failed");
+    console.error("[lead] All delivery channels failed");
     return NextResponse.json(
       { error: "Failed to deliver lead" },
       { status: 502 },
     );
   }
 
-  tgChecked.catch((err) => console.error("[lead] Telegram failed:", err.message));
-  emailChecked.catch((err) => console.error("[lead] Email failed:", err.message));
+  deliveryPromises.forEach((promise) => {
+    promise.catch((err) =>
+      console.error("[lead] Delivery channel failed:", err.message),
+    );
+  });
 
   return NextResponse.json({ ok: true });
 }

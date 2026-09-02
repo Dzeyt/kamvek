@@ -101,7 +101,13 @@ export function CallRequestModal({ open, onClose }: Props) {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, comment, page: window.location.pathname }),
+        body: JSON.stringify({
+          name,
+          phone,
+          comment,
+          page: window.location.pathname,
+          website: honeypot,
+        }),
         signal: controller.signal,
       });
       clearTimeout(timeout);
