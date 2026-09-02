@@ -40,6 +40,41 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   ]);
 }
 
+/**
+ * Соединение сервера с api.telegram.org иногда обрывается на TLS-этапе
+ * (проверено 2.09.2026: 1 из 4 тестовых заявок не дошла в Telegram, хотя
+ * почта доходила всегда). Это не блокировка, а нестабильная связь, поэтому
+ * несколько попыток с таймаутом решают проблему без прокси.
+ */
+async function fetchWithRetry(
+  url: string,
+  options: RequestInit,
+  attempts = 3,
+  timeoutMs = 6000,
+): Promise<Response> {
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timer);
+      return res;
+    } catch (err) {
+      clearTimeout(timer);
+      lastError = err;
+      if (attempt < attempts) {
+        await new Promise((resolve) => setTimeout(resolve, attempt * 600));
+      }
+    }
+  }
+
+  throw lastError instanceof Error
+    ? lastError
+    : new Error("Telegram request failed after retries");
+}
+
 // ===== RATE LIMITING =====
 const requestLog = new Map<string, number[]>();
 
@@ -138,7 +173,7 @@ export async function POST(req: NextRequest) {
   }
   tgLines.push(`📄 Страница: ${esc(pageName)}`);
 
-  const telegramPromise = fetch(
+  const telegramPromise = fetchWithRetry(
     `https://api.telegram.org/bot${token}/sendMessage`,
     {
       method: "POST",
