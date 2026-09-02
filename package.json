@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "images:optimize": "node scripts/optimize-images.mjs",
-    "portfolio:generate": "node scripts/generate-portfolio-data.mjs"
+    "portfolio:generate": "node scripts/generate-portfolio-data.mjs",
+    "metrika": "node scripts/metrika-report.mjs",
+    "webmaster": "node scripts/webmaster-report.mjs",
+    "coolify": "node scripts/coolify.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
