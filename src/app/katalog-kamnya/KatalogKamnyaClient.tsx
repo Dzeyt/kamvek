@@ -10,8 +10,7 @@ import Image from "next/image";
 import { STONES, STONE_GROUPS, type StoneGroup, type StoneItem } from "@/data/stones";
 import { useCallRequestModal } from "@/components/CallRequestModalContext";
 
-export function KatalogKamnyaClient() {
-  const { open } = useCallRequestModal();
+export function KatalogGroupBrowser() {
   const shouldReduceMotion = useReducedMotion();
   const searchParams = useSearchParams();
 
@@ -39,48 +38,8 @@ export function KatalogKamnyaClient() {
   const cardTransition: Transition = shouldReduceMotion ? {} : { duration: 0.2 };
 
   return (
-    <main className="min-h-screen">
-      {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-background-dark py-24 md:py-36">
-        <Image
-          src="/images/hero/marble-dark-texture.jpg"
-          alt=""
-          fill
-          className="object-cover object-center"
-          priority
-          aria-hidden="true"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-background-dark/60" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_15%_0%,rgba(201,169,98,0.22),transparent_55%),radial-gradient(700px_circle_at_85%_80%,rgba(92,74,61,0.18),transparent_55%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-dark/30 to-background-dark/70" />
-
-        <div className="container relative z-10">
-          <motion.div
-            {...(shouldReduceMotion
-              ? {}
-              : {
-                  initial: { opacity: 0, y: 24 },
-                  animate: { opacity: 1, y: 0 },
-                  transition: { duration: 0.65 },
-                })}
-          >
-            <h1
-              className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground-on-dark leading-tight tracking-tight max-w-3xl"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Натуральный камень: слэбы мрамора, гранита, кварцита и оникса
-            </h1>
-            <p className="mt-6 text-base sm:text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
-              Слэб камня — цельная плита, из которой делают столешницу, ступени или портал камина.
-              Нужный слэб мрамора можно выбрать лично или мы подберём его под ваш заказ.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── ТАБЫ + СЕТКА ── */}
-      <section className="py-12 md:py-16 bg-background">
-        <div className="container">
+    <section className="py-12 md:py-16 bg-background">
+      <div className="container">
           {/* Tabs */}
           <motion.div className="flex flex-wrap gap-2 mb-8 md:mb-10" {...reveal}>
             {STONE_GROUPS.map((group) => (
@@ -125,9 +84,26 @@ export function KatalogKamnyaClient() {
               Камни данной категории скоро появятся.
             </div>
           )}
-        </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
+export function KatalogKamnyaClient() {
+  const { open } = useCallRequestModal();
+  const shouldReduceMotion = useReducedMotion();
+
+  const reveal = shouldReduceMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, amount: 0.1 },
+        transition: { duration: 0.5 },
+      };
+
+  return (
+    <>
       {/* ── CTA ── */}
       <section className="py-16 md:py-20 bg-background">
         <div className="container">
@@ -178,7 +154,7 @@ export function KatalogKamnyaClient() {
           </motion.div>
         </div>
       </section>
-    </main>
+    </>
   );
 }
 
