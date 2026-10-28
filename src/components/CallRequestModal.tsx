@@ -9,6 +9,8 @@ type Props = {
   onClose: () => void;
 };
 
+type YmFn = (counterId: number, method: "reachGoal", goal: string) => void;
+
 function formatPhone(input: string): string {
   const digits = input.replace(/\D/g, "");
 
@@ -113,8 +115,9 @@ export function CallRequestModal({ open, onClose }: Props) {
       clearTimeout(timeout);
       if (!res.ok) throw new Error("Server error");
       setStatus("success");
-      if (typeof window !== "undefined" && typeof (window as any).ym === "function") {
-        (window as any).ym(110069807, "reachGoal", "form_submit");
+      const ym = (window as Window & { ym?: YmFn }).ym;
+      if (typeof ym === "function") {
+        ym(110069807, "reachGoal", "form_submit");
       }
     } catch {
       setStatus("error");

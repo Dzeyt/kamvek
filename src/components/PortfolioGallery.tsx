@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import clsx from "clsx";
 import Lightbox from "yet-another-react-lightbox";
@@ -27,6 +27,12 @@ export function PortfolioGallery({ items }: Props) {
   const [category, setCategory] = useState<PortfolioCategory>("Все");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [listCategory, setListCategory] = useState(category);
+  if (category !== listCategory) {
+    setListCategory(category);
+    setVisibleCount(PAGE_SIZE);
+    setActiveIndex(-1);
+  }
 
   const filtered = useMemo(() => {
     if (category === "Все") return items;
@@ -59,12 +65,6 @@ export function PortfolioGallery({ items }: Props) {
   const visible = useMemo(() => ordered.slice(0, visibleCount), [ordered, visibleCount]);
 
   const canLoadMore = visibleCount < ordered.length;
-
-  // Reset pagination when category changes
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-    setActiveIndex(-1);
-  }, [category]);
 
   const slides = useMemo(
     () =>

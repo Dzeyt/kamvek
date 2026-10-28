@@ -117,8 +117,8 @@ const ADVANTAGES = [
         </g>
       </svg>
     ),
-    title: "Сроки от 3 рабочих дней",
-    description: "Быстрое изготовление без потери качества. Сроки фиксируем в договоре.",
+    title: "Срочные заказы от 3 дней",
+    description: "Если нужный камень есть в наличии. Обычный срок называем вместе с расчётом.",
   },
 ];
 
@@ -127,7 +127,7 @@ const WORK_STEPS = [
   {
     step: 1,
     title: "Замер",
-    description: "Бесплатный выезд мастера. Точные измерения и консультация на объекте.",
+    description: "Выезд мастера на объект, точные измерения и чертежи. При большом объёме заказа замер бесплатный.",
   },
   {
     step: 2,
@@ -142,7 +142,7 @@ const WORK_STEPS = [
   {
     step: 4,
     title: "Монтаж",
-    description: "Доставка и установка изделий. Гарантия на работы и материалы.",
+    description: "Доставка и установка изделий. Небольшой объём монтируем за 1–2 дня.",
   },
 ];
 
@@ -210,11 +210,11 @@ export function HomePageClient() {
               className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-tight"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Изделия из натурального камня <span className="whitespace-nowrap">под ключ</span>
+              Изделия из натурального камня <span className="whitespace-nowrap">на заказ</span>
             </h1>
 
             <p className="text-base sm:text-lg md:text-xl text-foreground-on-dark/80 max-w-2xl mx-auto mb-10">
-              Индивидуальные решения — от проекта до монтажа.
+              Собственный цех в Воскресенске. Работаем по Москве и Московской области — от замера до монтажа.
             </p>
 
             {/* CTA кнопки */}

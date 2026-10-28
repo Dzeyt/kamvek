@@ -68,10 +68,11 @@ export function KatalogKamnyaClient() {
               className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground-on-dark leading-tight tracking-tight max-w-3xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Каталог камня
+              Натуральный камень: слэбы мрамора, гранита, кварцита и оникса
             </h1>
             <p className="mt-6 text-base sm:text-lg md:text-xl text-foreground-on-dark/70 leading-relaxed">
-              Мрамор, гранит, кварцит, оникс и травертин — натуральный камень для любого проекта.
+              Слэб камня — цельная плита, из которой делают столешницу, ступени или портал камина.
+              Нужный слэб мрамора можно выбрать лично или мы подберём его под ваш заказ.
             </p>
           </motion.div>
         </div>

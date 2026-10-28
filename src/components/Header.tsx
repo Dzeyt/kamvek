@@ -26,17 +26,17 @@ export function Header() {
   const pathname = usePathname();
   const { open } = useCallRequestModal();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [menuPath, setMenuPath] = useState(pathname);
+  if (pathname !== menuPath) {
+    setMenuPath(pathname);
+    setMobileOpen(false);
+  }
 
   const activeHref = useMemo(() => {
     // simple active matching: exact for "/", prefix for others
     if (pathname === "/") return "/";
     const found = NAV.find((x) => x.href !== "/" && pathname?.startsWith(x.href));
     return found?.href ?? null;
-  }, [pathname]);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setMobileOpen(false);
   }, [pathname]);
 
   useEffect(() => {
