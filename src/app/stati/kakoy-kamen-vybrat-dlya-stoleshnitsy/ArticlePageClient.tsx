@@ -31,7 +31,7 @@ function Paragraph({ text }: { text: string }) {
     const label = match[1];
     const href = match[2];
     parts.push(
-      <Link key={`${index}-${href}`} href={href} className="text-accent hover:underline">
+      <Link key={`${index}-${href}`} href={href} className="text-accent underline decoration-1 underline-offset-4 transition-opacity hover:opacity-70">
         {label}
       </Link>,
     );
@@ -220,7 +220,7 @@ export function ArticlePageClient({ copy }: { copy: ArticleCopy }) {
                 {copy.serviceCard.title}
               </p>
               <p className="mt-3 text-foreground-muted leading-relaxed">{copy.serviceCard.description}</p>
-              <span className="mt-5 inline-block text-accent group-hover:underline">Подробнее</span>
+              <span className="mt-6 inline-block text-accent underline decoration-1 underline-offset-4 transition-opacity group-hover:opacity-70">Подробнее</span>
             </Link>
           </div>
 

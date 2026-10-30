@@ -39,7 +39,7 @@ export function ArticleCard({ article, titleAs = "h2", clampLead = false }: Prop
         >
           {article.lead}
         </p>
-        <span className="mt-5 text-accent group-hover:underline">Читать</span>
+        <span className="mt-6 inline-block text-accent underline decoration-1 underline-offset-4">Читать</span>
       </div>
     </Link>
   );

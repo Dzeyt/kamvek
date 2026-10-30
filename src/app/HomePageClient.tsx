@@ -614,7 +614,7 @@ export function HomePageClient() {
             >
               Статьи
             </h2>
-            <Link href="/stati" className="text-accent hover:underline">
+            <Link href="/stati" className="mb-1 text-accent underline decoration-1 underline-offset-4">
               Все статьи
             </Link>
           </motion.div>
