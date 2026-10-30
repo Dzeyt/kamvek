@@ -31,8 +31,16 @@ const PORTFOLIO_PREVIEW_3COL = (() => {
   return [...prioritized, ...fallback].slice(0, 12);
 })();
 
-// Приоритетные услуги для главной
-const PRIORITY_SERVICES = SERVICES.filter((s) => s.priority).slice(0, 3);
+const HOME_DIRECTION_IDS = ["countertops", "steps", "fireplaces"];
+const HOME_DIRECTION_HREF: Record<string, string> = {
+  countertops: "/uslugi/stoleshnitsy",
+  steps: "/uslugi/lestnitsy-i-stupeni",
+  fireplaces: "/uslugi/kaminy",
+};
+const PRIORITY_SERVICES = HOME_DIRECTION_IDS.flatMap((id) => {
+  const service = SERVICES.find((item) => item.id === id);
+  return service ? [service] : [];
+});
 
 // Превью каталога: все 5 групп, по 1 «герою» с лучшей фотографией
 const CATALOG_HERO_PICKS: Record<string, string> = {
@@ -400,12 +408,12 @@ export function HomePageClient() {
                 </div>
 
                 <div className="mt-6 border-t border-marble-vein/60 pt-4">
-                  <button
-                    onClick={open}
-                    className="text-sm px-5 py-2.5 rounded-md border border-accent/60 text-foreground hover:bg-accent hover:text-foreground-on-dark transition-colors max-[440px]:w-full"
+                  <Link
+                    href={HOME_DIRECTION_HREF[service.id]}
+                    className="inline-block text-center text-sm px-5 py-2.5 rounded-md border border-accent/60 text-foreground hover:bg-accent hover:text-foreground-on-dark transition-colors max-[440px]:w-full"
                   >
-                    Заказать консультацию
-                  </button>
+                    Подробнее
+                  </Link>
                 </div>
               </motion.article>
             ))}

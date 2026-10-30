@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import clsx from "clsx";
 
@@ -27,16 +28,25 @@ const PROCESS_STEPS = [
   },
 ];
 
-export function UslugiPageClient() {
+const MotionLink = motion.create(Link);
+
+export function UslugiPageClient({
+  pageHrefById,
+}: {
+  pageHrefById: Record<string, string>;
+}) {
   const { open } = useCallRequestModal();
   const shouldReduceMotion = useReducedMotion();
 
   const services = useMemo(() => {
-    return [...SERVICES].sort((a, b) => {
+    const ordered = [...SERVICES].sort((a, b) => {
       if (a.priority === b.priority) return 0;
       return a.priority ? -1 : 1;
     });
-  }, []);
+    const withPage = ordered.filter((service) => pageHrefById[service.id]);
+    const rest = ordered.filter((service) => !pageHrefById[service.id]);
+    return [...withPage, ...rest];
+  }, [pageHrefById]);
 
   const reveal = shouldReduceMotion
     ? {}
@@ -132,41 +142,77 @@ export function UslugiPageClient() {
             className="grid gap-5 md:gap-6 md:grid-cols-2 xl:grid-cols-3"
             {...stagger}
           >
-            {services.map((service) => (
-              <motion.article
-                key={service.id}
-                {...staggerChild}
-                className={clsx(
-                  "group relative flex h-full flex-col rounded-xl border bg-surface p-6 transition-[box-shadow,border-color] hover:shadow-[var(--shadow-lg)]",
-                  service.priority
-                    ? "border-gold/40 hover:border-gold/70"
-                    : "border-marble-vein/60 hover:border-accent/40"
-                )}
-                style={{ boxShadow: "var(--shadow-sm)" }}
-              >
-                <div className="flex-1">
-                  <div className="h-px w-10 bg-gold/60 mb-4" />
-                  <h3
-                    className="text-lg font-semibold text-foreground leading-tight"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    {service.title}
-                  </h3>
-                  <p className="mt-3 text-foreground-muted leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
+            {services.map((service) => {
+              const href = pageHrefById[service.id];
+              const cardClass = clsx(
+                "group relative flex h-full flex-col rounded-xl border bg-surface p-6 transition-[box-shadow,border-color] hover:shadow-[var(--shadow-lg)]",
+                service.priority
+                  ? "border-gold/40 hover:border-gold/70"
+                  : "border-marble-vein/60 hover:border-accent/40"
+              );
 
-                <div className="mt-5 border-t border-marble-vein/60 pt-4">
-                  <button
-                    onClick={open}
-                    className="text-sm px-5 py-2.5 rounded-md border border-accent/60 text-foreground hover:bg-accent hover:text-foreground-on-dark transition-colors max-[440px]:w-full"
+              if (!href) {
+                return (
+                  <motion.article
+                    key={service.id}
+                    {...staggerChild}
+                    className={cardClass}
+                    style={{ boxShadow: "var(--shadow-sm)" }}
                   >
-                    Заказать консультацию
-                  </button>
-                </div>
-              </motion.article>
-            ))}
+                    <div className="flex-1">
+                      <div className="h-px w-10 bg-gold/60 mb-4" />
+                      <h3
+                        className="text-lg font-semibold text-foreground leading-tight"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                      >
+                        {service.title}
+                      </h3>
+                      <p className="mt-3 text-foreground-muted leading-relaxed">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    <div className="mt-5 border-t border-marble-vein/60 pt-4">
+                      <button
+                        onClick={open}
+                        className="text-sm px-5 py-2.5 rounded-md border border-accent/60 text-foreground hover:bg-accent hover:text-foreground-on-dark transition-colors max-[440px]:w-full"
+                      >
+                        Заказать консультацию
+                      </button>
+                    </div>
+                  </motion.article>
+                );
+              }
+
+              return (
+                <MotionLink
+                  key={service.id}
+                  href={href}
+                  {...staggerChild}
+                  className={cardClass}
+                  style={{ boxShadow: "var(--shadow-sm)" }}
+                >
+                  <div className="flex-1">
+                    <div className="h-px w-10 bg-gold/60 mb-4" />
+                    <h3
+                      className="text-lg font-semibold text-foreground leading-tight"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      {service.title}
+                    </h3>
+                    <p className="mt-3 text-foreground-muted leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-5 border-t border-marble-vein/60 pt-4">
+                    <span className="inline-block text-center text-sm px-5 py-2.5 rounded-md border border-accent/60 text-foreground group-hover:bg-accent group-hover:text-foreground-on-dark transition-colors max-[440px]:w-full">
+                      Подробнее
+                    </span>
+                  </div>
+                </MotionLink>
+              );
+            })}
           </motion.div>
         </div>
       </section>

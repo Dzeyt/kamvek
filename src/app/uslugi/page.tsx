@@ -1,5 +1,10 @@
 import { Metadata } from "next";
 import { UslugiPageClient } from "./UslugiPageClient";
+import { SERVICE_COPY } from "@/data/service-copy";
+
+const pageHrefById = Object.fromEntries(
+  SERVICE_COPY.map((item) => [item.serviceId, `/uslugi/${item.slug}`])
+);
 
 export const metadata: Metadata = {
   title: "Обработка натурального камня: изделия на заказ",
@@ -30,6 +35,6 @@ export const metadata: Metadata = {
 };
 
 export default function UslugiPage() {
-  return <UslugiPageClient />;
+  return <UslugiPageClient pageHrefById={pageHrefById} />;
 }
 
