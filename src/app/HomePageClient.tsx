@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { ArticleCard } from "@/components/ArticleCard";
 import { useCallRequestModal } from "@/components/CallRequestModalContext";
+import { ARTICLES } from "@/data/article-stoleshnitsa";
 import { PORTFOLIO_ITEMS } from "@/data/portfolio";
 import { HOME_PORTFOLIO_PREVIEW_IDS, HOME_PORTFOLIO_PREVIEW_IDS_3COL } from "@/data/portfolio-order";
 import { SERVICES } from "@/data/services";
@@ -600,6 +602,27 @@ export function HomePageClient() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-background">
+        <div className="container">
+          <motion.div {...animationProps} variants={fadeInUp} className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <h2
+              className="text-[30px] sm:text-3xl md:text-4xl font-semibold text-foreground"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Статьи
+            </h2>
+            <Link href="/stati" className="text-accent hover:underline">
+              Все статьи
+            </Link>
+          </motion.div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {ARTICLES.map((article) => (
+              <ArticleCard key={article.slug} article={article} titleAs="h3" clampLead />
+            ))}
+          </div>
         </div>
       </section>
 

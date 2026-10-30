@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
+import { ArticleCard } from "@/components/ArticleCard";
 import { useCallRequestModal } from "@/components/CallRequestModalContext";
+import { ARTICLE_STOLESHNITSA } from "@/data/article-stoleshnitsa";
 import type { ServiceCopy } from "@/data/service-copy";
 
 type Photo = {
@@ -103,6 +105,19 @@ export function ServicePageClient({ copy, crumbLabel, photos }: Props) {
               </div>
             ))}
           </div>
+          {copy.slug === "stoleshnitsy" ? (
+            <div className="mt-16">
+              <h2
+                className="text-2xl md:text-[30px] font-semibold text-foreground"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Полезно прочитать
+              </h2>
+              <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <ArticleCard article={ARTICLE_STOLESHNITSA} titleAs="h3" clampLead />
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
 

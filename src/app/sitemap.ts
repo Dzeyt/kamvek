@@ -35,6 +35,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/stati`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/stati/kakoy-kamen-vybrat-dlya-stoleshnitsy`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: `${baseUrl}/katalog-kamnya`,
       lastModified: new Date(),
       changeFrequency: "monthly",
